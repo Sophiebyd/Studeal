@@ -16,10 +16,17 @@ class RoleSeeder extends Seeder
     {
         Role::create([
             'role' => 'admin',
+            'id' => '1'
+        ]);
+
+        Role::create([
+            'role' => 'student_user',
+            'id' => '2'
         ]);
 
         Role::create([
             'role' => 'user',
+            'id' => '3'
         ]);
     }
 }

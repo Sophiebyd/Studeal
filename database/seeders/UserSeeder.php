@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        //create admin
+        //create users
         User::create([
             'lastname' => fake()->lastName,
             'firstname' => fake()->firstName,
@@ -33,22 +33,7 @@ class UserSeeder extends Seeder
             'banned' => false,
             'password' => static::$password ?: static::$password = Hash::make('password'),
             'remember_token' => Str::random(10),
-            'role_id' => 1,
-        ]);
-
-        //create user
-        User::create([
-            'lastname' => fake()->lastName,
-            'firstname' => fake()->firstName,
-            'birthdate' => fake()->date('d/m/Y'),
-            'phone' => fake()->phoneNumber,
-            'mail' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'picture' => fake()->imageUrl(),
-            'banned' => false,
-            'password' => static::$password ?: static::$password = Hash::make('password'),
-            'remember_token' => Str::random(10),
-            'role_id' => 2,
+            'role_id' => fake()->numberBetween(1, 3),
         ]);
 
         // create random users

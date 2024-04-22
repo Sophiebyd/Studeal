@@ -35,6 +35,7 @@ class UserFactory extends Factory
             'banned' => fake()->randomElement([true, false]),
             'password' => static::$password ?: static::$password = Hash::make('password'),
             'remember_token' => Str::random(10),
+            'role' => fake()->numberBetween(1, 3),
         ];
     }
     /**
