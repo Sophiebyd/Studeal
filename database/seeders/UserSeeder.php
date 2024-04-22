@@ -10,30 +10,54 @@ use Illuminate\Database\Seeder;
 class UserSeeder extends Seeder
 {
     /**
-     * The current password being used by the seeder.
-     */
-    protected static ?string $password;
-
-    /**
      * Run the database seeds.
      * 
      * @return void
      */
     public function run()
     {
-        //create users
+        //create admin
         User::create([
-            'lastname' => fake()->lastName,
-            'firstname' => fake()->firstName,
-            'birthdate' => fake()->date('d/m/Y'),
-            'phone' => fake()->phoneNumber,
-            'mail' => fake()->unique()->safeEmail(),
+            'last_name' => 'Sophie',
+            'first_name' => 'Byd',
+            'birthday' => '1995-08-02',
+            'phone' => fake()->phoneNumber(),
+            'email' => 'sbouyaud@arinfo.fr',
             'email_verified_at' => now(),
-            'picture' => fake()->imageUrl(),
+            'picture' => 'default.png',
             'banned' => false,
-            'password' => static::$password ?: static::$password = Hash::make('password'),
+            'password' => '123arinfo@',
             'remember_token' => Str::random(10),
-            'role_id' => fake()->numberBetween(1, 3),
+            'role_id' => 1,
+        ]);
+
+        //create user
+        User::create([
+            'last_name' => 'John',
+            'first_name' => 'Doe',
+            'birthday' => '1995-08-02',
+            'phone' => fake()->phoneNumber(),
+            'email' => 'johndoe@arinfo.fr',
+            'email_verified_at' => now(),
+            'picture' => 'default.png',
+            'banned' => false,
+            'password' => '456arinfo@',
+            'remember_token' => Str::random(10),
+            'role_id' => 2,
+        ]);
+
+        User::create([
+            'last_name' => 'Joseph',
+            'first_name' => 'Doe',
+            'birthday' => '1995-08-02',
+            'phone' => fake()->phoneNumber(),
+            'email' => 'josephdoe@arinfo.fr',
+            'email_verified_at' => now(),
+            'picture' => 'default.png',
+            'banned' => false,
+            'password' => '789arinfo@',
+            'remember_token' => Str::random(10),
+            'role_id' => 3,
         ]);
 
         // create random users

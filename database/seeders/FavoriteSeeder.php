@@ -17,7 +17,7 @@ class FavoriteSeeder extends Seeder
     public function run()
     {
         for ($i = 1; $i <= User::count(); $i++) {
-            DB::table('favoris')->insert([
+            DB::table('favorites')->insert([
                 'user_id' => $i,
                 'article_id' => rand(1, Article::count()),
             ]);
