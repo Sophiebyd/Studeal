@@ -24,11 +24,11 @@ class StoreUserRequest extends FormRequest
     {
         return [
             'image' => 'required|image|mimes:jpg,jpeg,png,svg|max:2048',
-            'last_name' => 'required|string|max:30',
-            'first_name' => 'required|string|max:30',
+            'last_name' => 'required|string|min:2|max:30',
+            'first_name' => 'required|string|min:2|max:30',
             'birthday' => 'required|date',
             'phone' => 'required|number|max:6',
-            'email' => 'required|string|max:30',
+            'email' => 'required|unique|string|max:50',
             'password' => [
                 'required', 'confirmed',
                 Password::min(8) // minimum 8 caractères   
@@ -43,17 +43,40 @@ class StoreUserRequest extends FormRequest
     public function messages()
     {
         return [
-            'pseudo.required' => 'Le pseudo est requis.',
-            'pseudo.string' => 'Le pseudo doit être une chaîne de caractères.',
-            'pseudo.min' => 'Le pseudo doit faire au moins 2 caractères.',
-            'pseudo.max' => 'Le pseudo ne doit pas dépasser 20 caractères.',
-            'pseudo.unique' => 'pseudo déjà utilisé.',
+            'last_name.required' => 'Le nom de famille est requis.',
+            'last_name.string' => 'Le nom de famille doit être une chaîne de caractères.',
+            'last_name.min' => 'Le nom de famille doit faire au moins 2 caractères.',
+            'last_name.max' => 'Le nom de famille ne doit pas dépasser 30 caractères.',
+
+            'first_name.required' => 'Le prénom est requis.',
+            'first_name.string' => 'Le prénom doit être une chaîne de caractères.',
+            'first_name.min' => 'Le prénom doit faire au moins 2 caractères.',
+            'first_name.max' => 'Le prénom ne doit pas dépasser 30 caractères.',
+
+            'email.required' => `L'email est requis.`,
             'email.unique' => 'email déjà utilisé.',
-            'email.required' => 'L\'email est requis.',
             'email.email' => 'Email invalide.',
+            'email.max' => `L'email ne doit pas dépasser 50 caractères.`,
+
+            'birthday.required' => `La date de naissance est requise.`,
+            'birthday.date' => 'La date de naissance doit être sous format date.',
+
+            'phone.required' => `Le numéro de téléphone est obligatoire.`,
+            'phone.number' => 'Le numéro de téléphone ne peut être composé que de chiffre.',
+            'phone.max' => 'Le numéro de téléphone ne doit pas dépasser 6 chiffres.',
+
+            'image.required' => `La photo de profil est obligatoire.`,
+            'image.mimes' => `Veuillez respecter les formats d'images: jpg,jpeg,png,svg.`,
+            'image.max' => `Le nom de l'image est trop volumineux, il ne doit pas dépasser 2048 caractères.`,
+
+
             'password.required' => 'Le mot de passe est requis.',
-            'password.string' => 'Le mot de passe doit être une chaîne de caractères.',
             'password.confirmed' => 'Confirmation du mot de passe incorrecte.',
+            'password.min' => 'Le mot de passe doit faire au moins 8 caractères.',
+            'password.mixedCase' => `Le mot de passe doit être composé d'au moins 1 minuscule et une majuscule.`,
+            'password.letters' => `Le mot de passe doit être composé d'au moins une lettre.`,
+            'password.numbers' => `Le mot de passe doit être composé d'au moins un chiffre.`,
+            'password.symbols' => `Le mot de passe doit être composé d'au moins un caractère spécial parmi ! @ # $ % ^ & * ?.`,
         ];
     }
 }
