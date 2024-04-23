@@ -3,48 +3,112 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUserRequest;
+use App\Models\Picture;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\File;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Fonction pour renvoyer la liste des utilisateurs
     public function index()
     {
-        //
+        //On récupère tous les utilisateurs
+        $users = User::all();
+
+        //On retourne les utilisateurs en JSON
+        return response()->json([
+            'status' => true,
+            'message' => 'Utilisateurs récupérés avec succès',
+            'users' => $users
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+
+    // Fonction pour sauvegarder un nouvel utilisateur
+    public function store(StoreUserRequest $request)
     {
-        //
+        $user = User::create([
+            'last_name' => $request->last_name,
+            'first_name' => $request->first_name,
+            'birthday' => $request->birthday,
+            'phone' => $request->phone,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+
+
+        if ($request->image) {
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->extension();
+            $image->move(public_path('images'), $imageName);
+            $user->update([
+                'image' => $imageName
+            ]);
+        }
+
+        Picture::create([
+            'name' => $imageName
+        ]);
+
+        return response()->json([
+            'message' => 'Utilisateur ajouté avec succès',
+            'status' => true,
+            'user' => $user,
+        ], 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
+    // Fonction pour récupérer les infos d'un utilisateur spécifique
     public function show(User $user)
     {
-        //
+        return response()->json([
+            'message' => 'Utilisateur trouvé',
+            'status' => true,
+            'user' => $user,
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, User $user)
+    // Fonction pour mettre à jour les informations d'un utilisateur
+    public function update(StoreUserRequest $request, User $user)
     {
-        //
+        $user->update($request->all());
+
+        if ($request->image) {
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->extension();
+            $image->move(public_path('images'), $imageName);
+            
+            $imagePath = 'images/' . $user->image;  // on supprime l'ancienne image (si existante)
+            if (File::exists(public_path($imagePath))) {
+                File::delete(public_path($imagePath));
+            }
+            
+            Picture::create([
+                'name' => $imageName
+            ]);
+            
+            $user->update([
+                'image' => $imageName
+            ]);
+        }
+
+        return response()->json([
+            'status' => true,
+            'user' => $user,
+            'message' => 'Utilisateur modifié',
+        ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    // Fonction pour supprimer un utilisateur
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return response()->json([
+            'status' => true,
+            'user' => $user,
+            'message' => 'Utilisateur supprimé',
+        ]);
     }
 }

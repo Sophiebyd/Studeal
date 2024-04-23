@@ -8,43 +8,42 @@ use Illuminate\Http\Request;
 
 class NotificationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Fonction pour renvoyer les notifications
     public function index()
     {
-        //
-    }
+        //On récupère tous les notifications
+        $notifications = Notification::all();
 
-    /**
-     * Store a newly created resource in storage.
-     */
+        //On retourne les notifications en JSON
+        return response()->json([
+            'status' => true,
+            'message' => 'les notifications ont été récupérés avec succès',
+            'notifications' => $notifications
+        ]);    }
+
+    // Fonction pour sauvegarder une nouvelle notification
     public function store(Request $request)
     {
-        //
+        $notification = Notification::create([
+            'title' => $request->title,
+            'content' => $request->content,
+        ]);
+
+        return response()->json([
+            'message' => 'La notification a été ajoutée avec succès',
+            'status' => true,
+            'notification' => $notification,
+        ], 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Notification $notification)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Notification $notification)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
+    // Fonction pour supprimer une notification
     public function destroy(Notification $notification)
     {
-        //
+        $notification->delete();
+        return response()->json([
+            'status' => true,
+            'notification' => $notification,
+            'message' => 'Notification supprimé',
+        ]);
     }
 }

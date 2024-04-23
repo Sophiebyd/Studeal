@@ -8,12 +8,18 @@ use Illuminate\Http\Request;
 
 class CommandController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Fonction pour renvoyer l'historique des commandes
     public function index()
     {
-        //
+        //On récupère tous les utilisateurs
+        $commands = Command::all();
+
+        //On retourne les utilisateurs en JSON
+        return response()->json([
+            'status' => true,
+            'message' => 'historique des commandes récupéré avec succès',
+            'user' => $commands
+        ]);
     }
 
     /**
@@ -21,7 +27,17 @@ class CommandController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $command = Command::create([
+            'price' => $request->price,
+            'article_id' => $request->article_id,
+            'user_id' => auth()->user()->id
+        ]);
+
+        return response()->json([
+            'message' => 'commande sauvegardée',
+            'status' => true,
+            'command' => $command,
+        ], 201);
     }
 
     /**
@@ -29,22 +45,21 @@ class CommandController extends Controller
      */
     public function show(Command $command)
     {
-        //
+        return response()->json([
+            'message'=> 'commande trouvée',
+            'status'=> true,
+            'command'=>$command
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Command $command)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
+    // Fonction pour supprimer un historique
     public function destroy(Command $command)
     {
-        //
+        $command->delete();
+        return response()->json([
+            'status' => true,
+            'command' => $command,
+            'message' => 'commande supprimée',
+        ]);
     }
 }

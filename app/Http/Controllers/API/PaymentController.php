@@ -8,43 +8,55 @@ use Illuminate\Http\Request;
 
 class PaymentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Fonction pour renvoyer les paiements
     public function index()
     {
-        //
+        //On récupère tous les paiements
+        $payments = Payment::all();
+
+        //On retourne les paiements en JSON
+        return response()->json([
+            'status' => true,
+            'message' => 'Les paiements ont été récupérés avec succès',
+            'payments' => $payments
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // Fonction pour sauvegarder un nouvel paiement
     public function store(Request $request)
     {
-        //
+        $payment = Payment::create([
+            'success' => $request->success,
+            'price' => $request->price,
+            'user_id' => auth()->user()->id,
+            'command_id' => $request->command_id
+        ]);
+
+        return response()->json([
+            'message' => 'Le paiement a été ajouté avec succès',
+            'status' => true,
+            'payment' => $payment,
+        ], 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
+    // Fonction pour récupérer les infos d'un paiement spécifique
     public function show(Payment $payment)
     {
-        //
+        return response()->json([
+            'message' => 'Le paiement a été trouvé',
+            'status' => true,
+            'payment' => $payment,
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Payment $payment)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
+    // Fonction pour supprimer un paiement
     public function destroy(Payment $payment)
     {
-        //
+        $payment->delete();
+        return response()->json([
+            'status' => true,
+            'payment' => $payment,
+            'message' => 'paiement supprimé',
+        ]);
     }
 }

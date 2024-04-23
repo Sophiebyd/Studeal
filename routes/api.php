@@ -32,6 +32,4 @@ Route::apiResource("payments", App\Http\Controllers\API\PaymentController::class
 
 Route::apiResource("pictures", App\Http\Controllers\API\PictureController::class);
 
-Route::apiResource("roles", App\Http\Controllers\API\RoleController::class);
-
 Route::apiResource("users", App\Http\Controllers\API\UserController::class);
