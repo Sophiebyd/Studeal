@@ -32,6 +32,8 @@ class ArticleController extends Controller
             'title' => $request->title,
             'content' => $request->content,
             'category_id' => $request->category_id,
+            'article_id' => $request->article_id,
+            'user_id' => auth()->user()->id,
 
         ]);
 
