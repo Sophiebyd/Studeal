@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreMessageRequest;
 use App\Models\Message;
 use Illuminate\Http\Request;
 
@@ -23,7 +24,7 @@ class MessageController extends Controller
     }
 
     // Fonction pour sauvegarder un nouvel message
-    public function store(Request $request)
+    public function store(StoreMessageRequest $request)
     {
         $message = Message::create([
             'content' => $request->content,

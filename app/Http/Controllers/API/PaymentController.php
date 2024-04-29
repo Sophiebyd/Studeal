@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StorePaymentRequest;
 use App\Models\Payment;
 use Illuminate\Http\Request;
 
@@ -23,7 +24,7 @@ class PaymentController extends Controller
     }
 
     // Fonction pour sauvegarder un nouvel paiement
-    public function store(Request $request)
+    public function store(StorePaymentRequest $request)
     {
         $payment = Payment::create([
             'success' => $request->success,

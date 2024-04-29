@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StorePaymentRequest;
 use App\Models\Notification;
 use Illuminate\Http\Request;
 
@@ -22,7 +23,7 @@ class NotificationController extends Controller
         ]);    }
 
     // Fonction pour sauvegarder une nouvelle notification
-    public function store(Request $request)
+    public function store(StorePaymentRequest $request)
     {
         $notification = Notification::create([
             'title' => $request->title,

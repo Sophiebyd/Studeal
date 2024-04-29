@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StorePictureRequest;
 use App\Models\Picture;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -24,7 +25,7 @@ class PictureController extends Controller
     }
 
     // Fonction pour sauvegarder une nouvelle image
-    public function store(Request $request)
+    public function store(StorePictureRequest $request)
     {
         $validator = Validator::make($request->all(), [
             'image' => 'required|image|mimes:jpg,jpeg,png,svg|max:2048'

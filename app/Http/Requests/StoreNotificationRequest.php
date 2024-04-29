@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreArticleRequest extends FormRequest
+class StoreNotificationRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,7 +23,7 @@ class StoreArticleRequest extends FormRequest
     {
         return [
             'title' => 'required|String|min:2|max:50',
-            'content' => 'required|string|min:2|max:5000',
+            'content' => 'required|string|min:2|max:100',
         ];
     }
 
@@ -38,8 +38,7 @@ class StoreArticleRequest extends FormRequest
             'content.required' => 'Le contenu est requis.',
             'content.string' => 'Le contenu doit être une chaîne de caractères.',
             'content.min' => 'Le contenu doit faire au moins 2 caractères.',
-            'content.max' => 'Le contenu ne doit pas dépasser 5000 caractères.',
+            'content.max' => 'Le contenu ne doit pas dépasser 100 caractères.',
         ];
-    }
+    }    
 }
-

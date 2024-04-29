@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreCommandRequest;
 use App\Models\Command;
 use Illuminate\Http\Request;
 
@@ -25,7 +26,7 @@ class CommandController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreCommandRequest $request)
     {
         $command = Command::create([
             'price' => $request->price,
