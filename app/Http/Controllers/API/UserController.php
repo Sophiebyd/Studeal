@@ -53,11 +53,11 @@ class UserController extends Controller
             $user->update([
                 'image' => $imageName
             ]);
+            Picture::create([
+                'name' => $imageName
+            ]);
         }
 
-        Picture::create([
-            'name' => $imageName
-        ]);
 
         return response()->json([
             'message' => 'Utilisateur ajouté avec succès',

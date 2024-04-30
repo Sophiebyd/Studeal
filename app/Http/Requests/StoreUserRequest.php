@@ -23,13 +23,12 @@ class StoreUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user2_id' => 'required|integer|different:user1_id',
-            'image' => 'required|image|mimes:jpg,jpeg,png,svg|max:2048',
+            'picture' => 'required|image|mimes:jpg,jpeg,png,svg|max:2048',
             'last_name' => 'required|string|min:2|max:30',
             'first_name' => 'required|string|min:2|max:30',
             'birthday' => 'required|date',
-            'phone' => 'required|number|max:6',
-            'email' => 'required|unique|string|max:50',
+            'phone' => 'required|digits:10',
+            'email' => 'required|unique:users|string|max:50',
             'password' => [
                 'required', 'confirmed',
                 Password::min(8) // minimum 8 caractères   
@@ -63,12 +62,11 @@ class StoreUserRequest extends FormRequest
             'birthday.date' => 'La date de naissance doit être sous format date.',
 
             'phone.required' => 'Le numéro de téléphone est obligatoire.',
-            'phone.number' => 'Le numéro de téléphone ne peut être composé que de chiffre.',
-            'phone.max' => 'Le numéro de téléphone ne doit pas dépasser 6 chiffres.',
+            'phone.max' => 'Le numéro de téléphone ne doit pas dépasser 10 chiffres.',
 
-            'image.required' => 'La photo de profil est obligatoire.',
-            'image.mimes' => 'Veuillez respecter les formats d\'images: jpg,jpeg,png,svg.',
-            'image.max' => 'Le nom de l\'image est trop volumineux, il ne doit pas dépasser 2048 caractères.',
+            'picture.required' => 'La photo de profil est obligatoire.',
+            'picture.mimes' => 'Veuillez respecter les formats d\'images: jpg,jpeg,png,svg.',
+            'picture.max' => 'Le nom de l\'image est trop volumineux, il ne doit pas dépasser 2048 caractères.',
 
 
             'password.required' => 'Le mot de passe est requis.',

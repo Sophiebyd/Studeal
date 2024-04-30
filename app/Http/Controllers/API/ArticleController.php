@@ -13,6 +13,7 @@ class ArticleController extends Controller
      * Display a listing of the resource.
      */
 
+    // middleware sanctum
     public function __construct()
     {
         $this->middleware('auth:sanctum')->except('index, show');

@@ -23,6 +23,7 @@ class StoreMessageRequest extends FormRequest
     {
         return [
             'content' => 'required|string|min:2|max:5000',
+            'user2_id' => 'required|integer|different:user1_id',
         ];
     }
 

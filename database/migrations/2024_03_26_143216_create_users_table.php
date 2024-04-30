@@ -17,15 +17,15 @@ return new class extends Migration
             $table->string('last_name', 50);
             $table->string('first_name', 50);
             $table->date('birthday');
-            $table->string('picture');
+            $table->string('picture')->nullable();
             $table->string('phone');
             $table->string('email', 50)->unique();
             $table->string('email_verified_at')->nullable();
             $table->string('password');
             $table->boolean('banned')->default(false);
-            $table->string('remember_token');
+            $table->string('remember_token')->nullable();
 
-            $table->foreignId('role_id')->constrained();
+            $table->foreignId('role_id')->default(3)->constrained();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
