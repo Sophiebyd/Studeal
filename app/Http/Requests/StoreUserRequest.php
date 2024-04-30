@@ -54,30 +54,30 @@ class StoreUserRequest extends FormRequest
             'first_name.min' => 'Le prénom doit faire au moins 2 caractères.',
             'first_name.max' => 'Le prénom ne doit pas dépasser 30 caractères.',
 
-            'email.required' => `L'email est requis.`,
-            'email.unique' => 'email déjà utilisé.',
+            'email.required' => 'L\'email est requis.',
+            'email.unique' => 'Email déjà utilisé.',
             'email.email' => 'Email invalide.',
-            'email.max' => `L'email ne doit pas dépasser 50 caractères.`,
+            'email.max' => 'L\'email ne doit pas dépasser 50 caractères.',
 
-            'birthday.required' => `La date de naissance est requise.`,
+            'birthday.required' => 'La date de naissance est requise.',
             'birthday.date' => 'La date de naissance doit être sous format date.',
 
-            'phone.required' => `Le numéro de téléphone est obligatoire.`,
+            'phone.required' => 'Le numéro de téléphone est obligatoire.',
             'phone.number' => 'Le numéro de téléphone ne peut être composé que de chiffre.',
             'phone.max' => 'Le numéro de téléphone ne doit pas dépasser 6 chiffres.',
 
-            'image.required' => `La photo de profil est obligatoire.`,
-            'image.mimes' => `Veuillez respecter les formats d'images: jpg,jpeg,png,svg.`,
-            'image.max' => `Le nom de l'image est trop volumineux, il ne doit pas dépasser 2048 caractères.`,
+            'image.required' => 'La photo de profil est obligatoire.',
+            'image.mimes' => 'Veuillez respecter les formats d\'images: jpg,jpeg,png,svg.',
+            'image.max' => 'Le nom de l\'image est trop volumineux, il ne doit pas dépasser 2048 caractères.',
 
 
             'password.required' => 'Le mot de passe est requis.',
             'password.confirmed' => 'Confirmation du mot de passe incorrecte.',
             'password.min' => 'Le mot de passe doit faire au moins 8 caractères.',
-            'password.mixedCase' => `Le mot de passe doit être composé d'au moins 1 minuscule et une majuscule.`,
-            'password.letters' => `Le mot de passe doit être composé d'au moins une lettre.`,
-            'password.numbers' => `Le mot de passe doit être composé d'au moins un chiffre.`,
-            'password.symbols' => `Le mot de passe doit être composé d'au moins un caractère spécial parmi ! @ # $ % ^ & * ?.`,
+            'password.mixedCase' => 'Le mot de passe doit être composé d\'au moins 1 minuscule et une majuscule.',
+            'password.letters' => 'Le mot de passe doit être composé d\'au moins une lettre.',
+            'password.numbers' => 'Le mot de passe doit être composé d\'au moins un chiffre.',
+            'password.symbols' => 'Le mot de passe doit être composé d\'au moins un caractère spécial parmi ! @ # $ % ^ & * ?.',
         ];
     }
 }
