@@ -2,7 +2,6 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\LoginController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -24,7 +23,7 @@ Route::apiResource("pictures", App\Http\Controllers\API\PictureController::class
 
 Route::apiResource("users", App\Http\Controllers\API\UserController::class);
 
-Route::post('login', [LoginController::class, 'login'])->name('login');
+Route::post('login', [App\Http\Controllers\API\LoginController::class, 'login'])->name('login');
 
-Route::post('logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth:web');
+Route::post('logout', [App\Http\Controllers\API\LoginController::class, 'logout'])->name('logout')->middleware('auth:web');
 

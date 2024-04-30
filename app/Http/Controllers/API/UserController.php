@@ -12,6 +12,12 @@ use Illuminate\Support\Facades\File;
 
 class UserController extends Controller
 {
+    // middleware
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum')->except('store');
+    }
+    
     // Fonction pour renvoyer la liste des utilisateurs
     public function index()
     {
@@ -111,4 +117,5 @@ class UserController extends Controller
             'message' => 'Utilisateur supprimé',
         ]);
     }
+
 }
