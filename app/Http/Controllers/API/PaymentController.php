@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 
 class PaymentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum')->except('index, show');
+    }
+    
     // Fonction pour renvoyer les paiements
     public function index()
     {

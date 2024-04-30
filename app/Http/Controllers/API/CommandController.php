@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 
 class CommandController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum')->except('index, show');
+    }
+    
     // Fonction pour renvoyer l'historique des commandes
     public function index()
     {

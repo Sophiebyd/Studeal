@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 
 class MessageController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum')->except('index, show, store');
+    }
+
     // Fonction pour renvoyer les messages
     public function index()
     {

@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 
 class NotificationController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum')->except('index, show, delete');
+    }
+
     // Fonction pour renvoyer les notifications
     public function index()
     {
