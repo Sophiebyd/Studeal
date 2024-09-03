@@ -23,7 +23,7 @@ class StoreUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'picture' => 'required|image|mimes:jpg,jpeg,png,svg|max:2048',
+            'picture' => 'image|mimes:jpg,jpeg,png,svg|max:2048',
             'last_name' => 'required|string|min:2|max:30',
             'first_name' => 'required|string|min:2|max:30',
             'birthday' => 'required|date',

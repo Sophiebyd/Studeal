@@ -23,7 +23,13 @@ Route::apiResource("pictures", App\Http\Controllers\API\PictureController::class
 
 Route::apiResource("users", App\Http\Controllers\API\UserController::class);
 
+///////////////////////////// Post ////////////////////////////////////////////////////////////
+
 Route::post('login', [App\Http\Controllers\API\LoginController::class, 'login'])->name('login');
 
 Route::post('logout', [App\Http\Controllers\API\LoginController::class, 'logout'])->name('logout')->middleware('auth:web');
 
+
+///////////////////////////// Patch ////////////////////////////////////////////////////////////
+
+route::patch('users/{id}', [App\Http\Controllers\API\UserController::class, 'update'])->name('users.update');
