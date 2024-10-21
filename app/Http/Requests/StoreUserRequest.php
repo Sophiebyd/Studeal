@@ -24,11 +24,11 @@ class StoreUserRequest extends FormRequest
     {
         return [
             'picture' => 'image|mimes:jpg,jpeg,png,svg|max:2048',
-            'last_name' => 'required|string|min:2|max:30',
-            'first_name' => 'required|string|min:2|max:30',
-            'birthday' => 'required|date',
-            'phone' => 'required|digits:10',
-            'email' => 'required|unique:users|string|max:50',
+            'last_name' => 'string|min:2|max:30',
+            'first_name' => 'string|min:2|max:30',
+            'birthday' => 'date',
+            'phone' => 'digits:10',
+            'email' => 'unique:users|string|max:50',
             'password' => [
                 'required', 'confirmed',
                 Password::min(8) // minimum 8 caractères   

@@ -64,3 +64,18 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Lancer l'application (vue)
+npm run dev
+
+## Lancer le serveur
+php artisan serv
+
+## Voir la liste des routes
+php artisan route:list
+
+## URL
+http://127.0.0.1:8000/
+
+## dernières lignes des logs Laravel
+storage/logs/laravel.log
