@@ -1,5 +1,6 @@
 <template>
   <nav class="navbar navbar-expand-lg">
+    <span>{{ userStore.user.email }}</span>
     <div class="container-fluid">
       <a class="navbar-brand" href="#">
         <img src="../../../public/img/Logo.png" alt="Logo" class="logo" />
@@ -81,27 +82,29 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="loginModalLabel">Connexion</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close" id="loginModalClose" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form>
+          <form @submit.prevent="authenticate">
             <div class="mb-3">
               <label for="emailLogin" class="form-label">Adresse email</label>
-              <input type="email" class="form-control" id="emailLogin" />
+              <input type="email" class="form-control" id="emailLogin" v-model="login.email" />
+              <FormError :messages="errors?.email"/>
             </div>
             <div class="mb-3">
               <label for="passwordLogin" class="form-label">Mot de passe</label>
-              <input type="password" class="form-control" id="passwordLogin" />
+              <input type="password" class="form-control" id="passwordLogin" v-model="login.password" />
+              <FormError :messages="errors?.password"/>
+            </div>
+            <div class="modal-footer">
+              <input type="submit" class="btn btn-primary" value="Connexion" />
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
             </div>
           </form>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary">Connexion</button>
-          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
-        </div>
         <div class="text-center mt-2">
-          <button class="btn btn-link" data-bs-toggle="modal" data-bs-target="#signupModal" data-bs-dismiss="modal">Inscription</button> |
-          <button class="btn btn-link" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal" data-bs-dismiss="modal">Mot de passe oublié</button>
+          <button class="btn btn-link" data-bs-toggle="modal" data-bs-target="#signupModal" data-bs-dismiss="modal" @click="changeModal">Inscription</button> |
+          <button class="btn btn-link" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal" data-bs-dismiss="modal" @click="changeModal">Mot de passe oublié</button>
         </div>
       </div>
     </div>
@@ -113,47 +116,55 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="signupModalLabel">Inscription</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close" id="signupModalClose" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form>
+          <form @submit.prevent="register">
             <div class="mb-3">
               <label for="firstName" class="form-label">Prénom</label>
-              <input type="text" class="form-control" id="firstName" />
+              <input type="text" class="form-control" id="firstName" v-model="subscribe.first_name" />
+              <FormError :messages="errors?.first_name"/>
             </div>
             <div class="mb-3">
               <label for="lastName" class="form-label">Nom</label>
-              <input type="text" class="form-control" id="lastName" />
+              <input type="text" class="form-control" id="lastName" v-model="subscribe.last_name" />
+              <FormError :messages="errors?.last_name"/>
             </div>
             <div class="mb-3">
               <label for="emailSignup" class="form-label">Email</label>
-              <input type="email" class="form-control" id="emailSignup" />
+              <input type="email" class="form-control" id="emailSignup" v-model="subscribe.email" />
+              <FormError :messages="errors?.email"/>
             </div>
             <div class="mb-3">
               <label for="dob" class="form-label">Date de naissance</label>
-              <input type="date" class="form-control" id="dob" />
+              <input type="date" class="form-control" id="dob" v-model="subscribe.birthday" />
+              <FormError :messages="errors?.birthday"/>
             </div>
             <div class="mb-3">
               <label for="phone" class="form-label">Téléphone</label>
-              <input type="text" class="form-control" id="phone" />
+              <input type="text" class="form-control" id="phone" v-model="subscribe.phone" />
+              <FormError :messages="errors?.phone"/>
             </div>
             <div class="mb-3">
               <label for="passwordSignup" class="form-label">Mot de passe</label>
-              <input type="password" class="form-control" id="passwordSignup" />
+              <input type="password" class="form-control" id="passwordSignup" v-model="subscribe.password" />
+              <FormError :messages="errors?.password"/>
             </div>
             <div class="mb-3">
               <label for="confirmPasswordSignup" class="form-label">Confirmer le mot de passe</label>
-              <input type="password" class="form-control" id="confirmPasswordSignup" />
+              <input type="password" class="form-control" id="confirmPasswordSignup" v-model="subscribe.password_confirmation" />
+              <FormError :messages="errors?.password_confirmation"/>
+            </div>
+            <div class="modal-footer">
+              <input type="submit" class="btn btn-primary" value="S'inscrire"/>
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
             </div>
           </form>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary">S'inscrire</button>
-          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
-        </div>
+
         <div class="text-center mt-2">
-          <button class="btn btn-link" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal">Connexion</button> |
-          <button class="btn btn-link" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal" data-bs-dismiss="modal">Mot de passe oublié</button>
+          <button class="btn btn-link" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal" @click="changeModal">Connexion</button> |
+          <button class="btn btn-link" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal" data-bs-dismiss="modal" @click="changeModal">Mot de passe oublié</button>
         </div>
       </div>
     </div>
@@ -180,16 +191,56 @@
           <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
         </div>
         <div class="text-center mt-2">
-          <button class="btn btn-link" data-bs-toggle="modal" data-bs-target="#signupModal" data-bs-dismiss="modal">Inscription</button> |
-          <button class="btn btn-link" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal">Connexion</button>
+          <button class="btn btn-link" data-bs-toggle="modal" data-bs-target="#signupModal" data-bs-dismiss="modal" @click="changeModal">Inscription</button> |
+          <button class="btn btn-link" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal" @click="changeModal">Connexion</button>
         </div>
       </div>
     </div>
   </div>
+  <contextHolder />
 </template>
 
 <script setup>
-  
+import { notification } from 'ant-design-vue';
+import { ref } from 'vue';
+import router from '@/router';
+import * as AuthService  from '../_services/AuthService';
+import FormError from './FormError.vue';
+import { useUserStore } from '@/stores/User';
+
+const [api, contextHolder] = notification.useNotification();
+const userStore = useUserStore();
+
+let subscribe = ref({});
+let login = ref({});
+let errors = ref({});
+
+function changeModal() {
+  errors.value = {};
+  subscribe.value = {};
+}
+
+function register() {
+  AuthService.register(subscribe.value).then(() => {
+    document.getElementById('signupModalClose').click();
+    api.info({ message: `Inscription réussie` });
+  }).catch(error => {
+    if (error.response && error.response.data.errors) {
+      errors.value = error.response.data.errors;
+    }
+  });
+}
+
+function authenticate() {
+  AuthService.authenticate(login.value).then(() => {
+    document.getElementById('loginModalClose').click();
+    api.info({ message: `Connexion réussie` });
+  }).catch(error => {
+    if (error.response && error.response.data.errors) {
+      errors.value = error.response.data.errors;
+    }
+  });
+}
 </script>
 
 <style scoped>

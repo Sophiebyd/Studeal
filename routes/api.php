@@ -2,34 +2,42 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\RegisterController;
+use App\Http\Controllers\API\ArticleController;
+use App\Http\Controllers\API\CategoryController;
+use App\Http\Controllers\API\CommandController;
+use App\Http\Controllers\API\MessageController;
+use App\Http\Controllers\API\NotificationController;
+use App\Http\Controllers\API\PaymentController;
+use App\Http\Controllers\API\PictureController;
+use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\API\LoginController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::apiResource("articles", App\Http\Controllers\API\ArticleController::class);
+Route::apiResource("/articles", ArticleController::class);
 
-Route::apiResource("categories", App\Http\Controllers\API\CategoryController::class);
+Route::apiResource("/categories", CategoryController::class);
 
-Route::apiResource("commands", App\Http\Controllers\API\CommandController::class);
+Route::apiResource("/commands", CommandController::class);
 
-Route::apiResource("messages", App\Http\Controllers\API\MessageController::class);
+Route::apiResource("/messages", MessageController::class);
 
-Route::apiResource("notifications", App\Http\Controllers\API\NotificationController::class);
+Route::apiResource("/notifications", NotificationController::class);
 
-Route::apiResource("payments", App\Http\Controllers\API\PaymentController::class);
+Route::apiResource("/payments", PaymentController::class);
 
-Route::apiResource("pictures", App\Http\Controllers\API\PictureController::class);
+Route::apiResource("/pictures", PictureController::class);
 
-Route::apiResource("users", App\Http\Controllers\API\UserController::class);
+Route::apiResource("/users", UserController::class);
 
 ///////////////////////////// Post ////////////////////////////////////////////////////////////
 
-Route::post('login', [App\Http\Controllers\API\LoginController::class, 'login'])->name('login');
-
-Route::post('logout', [App\Http\Controllers\API\LoginController::class, 'logout'])->name('logout')->middleware('auth:web');
-
+Route::post('/register', [RegisterController::class, 'register'])->name('register');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth:web');
 
 ///////////////////////////// Patch ////////////////////////////////////////////////////////////
 
-route::patch('users/{id}', [App\Http\Controllers\API\UserController::class, 'update'])->name('users.update');
+route::patch('/users/{id}', [App\Http\Controllers\API\UserController::class, 'update'])->name('users.update');
