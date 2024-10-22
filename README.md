@@ -79,3 +79,6 @@ http://127.0.0.1:8000/
 
 ## dernières lignes des logs Laravel
 storage/logs/laravel.log
+
+## relancer migration + factories 
+php artisan migrate:fresh --seed

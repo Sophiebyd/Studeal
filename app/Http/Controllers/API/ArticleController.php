@@ -38,9 +38,9 @@ class ArticleController extends Controller
         $article = Article::create([
             'title' => $request->title,
             'content' => $request->content,
+            'price' => $request->price,
             'category_id' => $request->category_id,
             'user_id' => auth()->user()->id,
-
         ]);
 
         return response()->json([
@@ -67,14 +67,20 @@ class ArticleController extends Controller
      */
     public function update(StoreArticleRequest $request, Article $article)
     {
-        $article->update($request->all());
+        $article->update([
+            'title' => $request->title,
+            'content' => $request->content,
+            'price' => $request->price,
+            'category_id' => $request->category_id,
+        ]);
 
         return response()->json([
             'status' => true,
             'article' => $article,
-            'message' => 'Utilisateur modifié',
+            'message' => 'Article modifié',
         ]);
     }
+
     /**
      * Remove the specified resource from storage.
      */

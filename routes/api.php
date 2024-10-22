@@ -33,6 +33,9 @@ Route::apiResource("/pictures", PictureController::class);
 
 Route::apiResource("/users", UserController::class);
 
+///////////////////////////// Get /////////////////////////////////////////////////////////////
+Route::get('/articles', [ArticleController::class, 'index']);
+
 ///////////////////////////// Post ////////////////////////////////////////////////////////////
 
 Route::post('/register', [RegisterController::class, 'register'])->name('register');

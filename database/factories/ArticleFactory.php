@@ -25,6 +25,7 @@ class ArticleFactory extends Factory
             'content' => fake()->paragraph,
             'category_id'=> rand(1, Category::count()),
             'user_id'=> rand(1, User::count()),
+            'price' => fake()->randomFloat(2, 10, 9999),
         ];
     }
 }
