@@ -1,7 +1,7 @@
 <template>
     <div class="categories my-5">
         <h2 class="text-center">Nos catégories</h2>
-        <div class="d-flex justify-content-center text-center mt-5">
+        <div class="d-flex justify-content-center text-center mt-5 flex-wrap">
 
             <router-link to="/colocation" class="category-item">
                 <img src="../../../public/img/colocation.jpg" alt="Colocation"
@@ -32,38 +32,63 @@
 </template>
 
 <style scoped>
-.category-img {
-    width: 160px;
-    height: 160px;
-    object-fit: cover;
+.categories {
+    padding: 0 1rem;
 }
 
+.category-img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.category-item {
+    margin: 0.5rem;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.category-item p {
+    color: black;
+    margin-top: 0.5rem;
+    font-size: 1.1rem;
+}
+
+/* Effet au survol */
+.category-item:hover .category-img {
+    transform: scale(1.1);
+}
+
+/* Responsive */
 @media (min-width: 768px) {
     .category-img {
         width: 180px;
         height: 180px;
     }
+
+    .category-item p {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .category-img {
+        width: 120px;
+        height: 120px;
+    }
+
+    .category-item p {
+        font-size: 1rem;
+    }
 }
 
 .d-flex {
-    gap: 1rem;
-}
-
-.category-item {
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
-    text-decoration: none;
-    color: inherit;
-}
-
-.category-item p {
-    color: black;
-    margin-bottom: 0;
-}
-
-/* Ajout d'un effet au survol*/
-.category-item:hover .category-img {
-    transform: scale(1.05);
-    transition: transform 0.3s ease;
+    gap: 2rem; 
+    flex-wrap: wrap;
+    justify-content: space-around;
 }
 </style>

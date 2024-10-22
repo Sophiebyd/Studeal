@@ -65,6 +65,8 @@
     font-size: 1.3rem;
 }
 
+/* responsives */
+
 @media (max-width: 768px) {
     .advantage-items {
         flex-direction: column;

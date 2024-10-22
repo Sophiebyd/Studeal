@@ -3,7 +3,7 @@
         <h2 class="text-center">Les dernières annonces</h2>
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-md-2 d-flex flex-column align-items-center" v-for="ad in ads" :key="ad.id">
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 d-flex flex-column align-items-center" v-for="ad in ads" :key="ad.id">
                     <div class="card mb-4" style="width: 100%;">
                         <img :src="ad.image" class="card-img-top" :alt="ad.title">
                         <div class="card-body text-center">
@@ -53,7 +53,7 @@ h2 {
 }
 
 .card-img-top {
-    height: 150px;
+    height: 160px;
     object-fit: cover;
 }
 
@@ -61,10 +61,72 @@ h2 {
     justify-content: space-between;
 }
 
-.col-md-2 {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: 100%;
+.col-12 {
+    margin-bottom: 1.5rem;
+}
+
+/* responsives */
+@media (min-width: 1200px) {
+    .row {
+        justify-content: center;
+        flex-wrap: nowrap;
+    }
+
+    .col-xl-3 {
+        flex: 0 0 auto;
+        max-width: 23%; 
+    }
+
+    .card-img-top {
+        height: 220px;
+    }
+
+    .card-body {
+        padding: 1.2rem;
+    }
+
+    .card-title {
+        font-size: 1.4rem;
+    }
+
+    .card-text {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .col-md-4 {
+        max-width: 48%; 
+    }
+
+    .card-img-top {
+        height: 160px;
+    }
+
+    .card-title {
+        font-size: 1.2rem;
+    }
+
+    .card-text {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .col-sm-6 {
+        max-width: 100%; 
+    }
+
+    .card-img-top {
+        height: 150px;
+    }
+
+    .card-title {
+        font-size: 1.1rem;
+    }
+
+    .card-text {
+        font-size: 0.95rem;
+    }
 }
 </style>
