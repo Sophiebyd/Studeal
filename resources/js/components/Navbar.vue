@@ -335,4 +335,20 @@ function logout() {
 .text-center .btn-link {
   text-decoration: underline;
 }
+
+/* Responsive */
+@media (max-width: 576px) {
+  .userAddress {
+    display: none;
+  }
+
+  .btn-annonce {
+    font-size: 0.85rem;
+    padding: 3px 10px;
+  }
+
+  .menu-link {
+    font-size: 0.85rem;
+  }
+}
 </style>
