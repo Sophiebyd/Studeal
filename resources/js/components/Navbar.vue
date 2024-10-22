@@ -307,6 +307,13 @@ function logout() {
   border-radius: 5px;
   border: none;
   font-size: 1rem;
+  transition: transform 0.2s ease-in-out;
+}
+
+.btn-annonce:hover {
+  transform: scale(1.05);
+  background-color: white;
+  color: #8B428F;
 }
 
 .menu-link {
