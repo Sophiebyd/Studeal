@@ -20,3 +20,7 @@ export async function authenticate(data) {
 
     return res.data;
 }
+
+export async function logout() {
+    // ....
+}
