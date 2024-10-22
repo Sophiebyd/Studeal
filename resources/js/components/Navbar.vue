@@ -4,7 +4,12 @@
       <router-link class="navbar-brand" to="/">
         <img src="../../../public/img/Logo.png" alt="Logo" class="logo" />
       </router-link>
-      <span class="userAddress">{{ userStore.user.email }}</span>
+
+      <!-- Affiche l'email uniquement si l'utilisateur est connecté -->
+      <router-link class="userAddress" v-if="userStore.isLogged" :to="'/profil/' + userStore.user.id">
+        {{ userStore.user.email }}
+      </router-link>
+
       <div class="d-flex ms-auto align-items-center">
         <button class="btn btn-annonce me-3" data-bs-toggle="modal" data-bs-target="#addAnnouncementModal">
           + Ajouter une annonce
@@ -16,13 +21,24 @@
               Menu
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
-              <li><button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#loginModal">Connexion</button>
+              <!-- Affiche le bouton Connexion si l'utilisateur n'est pas connecté -->
+              <li v-if="!userStore.isLogged"><button class="dropdown-item" data-bs-toggle="modal"
+                  data-bs-target="#loginModal">Connexion</button></li>
+
+              <!-- Affiche le lien vers le profil avec l'ID de l'utilisateur si connecté -->
+              <li v-if="userStore.isLogged">
+                <router-link class="dropdown-item" :to="'/profil/' + userStore.user.id">Profil</router-link>
               </li>
-              <li><router-link class="dropdown-item" to="/profil">Profil</router-link></li>
+
               <li><router-link class="dropdown-item" to="/colocation">Colocation</router-link></li>
               <li><router-link class="dropdown-item" to="/covoiturage">Covoiturage</router-link></li>
               <li><router-link class="dropdown-item" to="/vente-meubles">Ventes de meubles</router-link></li>
               <li><router-link class="dropdown-item" to="/soutien-scolaire">Soutien scolaire</router-link></li>
+
+              <!-- Affiche le bouton Déconnexion si l'utilisateur est connecté -->
+              <li v-if="userStore.isLogged">
+                <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#logoutModal">Déconnexion</button>
+              </li>
             </ul>
           </li>
         </ul>
@@ -173,6 +189,22 @@
     </div>
   </div>
 
+  <!-- Modal pour déconnexion -->
+  <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="logoutModalLabel">Voulez-vous déconnecter ?</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-footer">
+          <button @click="logout" class="btn btn-primary" data-bs-dismiss="modal">Déconnecter</button>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Modal pour Mot de passe oublié -->
   <div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="forgotPasswordModalLabel"
     aria-hidden="true">
@@ -203,6 +235,7 @@
       </div>
     </div>
   </div>
+
   <contextHolder />
 </template>
 
@@ -212,9 +245,11 @@ import { ref } from 'vue';
 import * as AuthService from '../_services/AuthService';
 import FormError from './FormError.vue';
 import { useUserStore } from '@/stores/User';
+import { useRouter } from 'vue-router';
 
 const [api, contextHolder] = notification.useNotification();
 const userStore = useUserStore();
+const router = useRouter();
 
 let subscribe = ref({});
 let login = ref({});
@@ -246,6 +281,12 @@ function authenticate() {
     }
   });
 }
+
+function logout() {
+  userStore.clearUser();
+  api.info({ message: `Déconnexion réussie` });
+  router.push('/');
+}
 </script>
 
 <style scoped>
@@ -266,13 +307,6 @@ function authenticate() {
   border-radius: 5px;
   border: none;
   font-size: 1rem;
-  white-space: nowrap;
-}
-
-.search-bar {
-  height: 38px;
-  width: 200px;
-  border-radius: 5px;
 }
 
 .menu-link {
@@ -283,12 +317,8 @@ function authenticate() {
   padding: 5px 15px;
 }
 
-.dropdown-menu {
-  position: absolute !important;
-  top: 100%;
-  left: 0;
-  z-index: 1000;
-  border: 1px solid white;
+.userAddress {
+  color: white;
 }
 
 .modal-footer .btn {
@@ -297,40 +327,5 @@ function authenticate() {
 
 .text-center .btn-link {
   text-decoration: underline;
-}
-
-@media (max-width: 576px) {
-  .navbar {
-    padding: 10px 15px;
-  }
-
-  .btn-annonce {
-    font-size: 0.85rem;
-    padding: 3px 10px;
-    height: 34px;
-  }
-
-  .search-bar {
-    height: 34px;
-    width: 150px;
-  }
-
-  .d-flex {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .navbar-nav {
-    margin-top: 10px;
-  }
-
-  .menu-link {
-    font-size: 0.85rem;
-    padding: 3px 10px;
-  }
-
-  .userAddress {
-    color: white;
-  }
 }
 </style>

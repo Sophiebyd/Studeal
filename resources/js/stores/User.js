@@ -32,9 +32,9 @@ export const useUserStore = defineStore('user', () => {
       role: ''
     });
     
-    localStorage.removeItem('id');
-    localStorage.removeItem('email');
-    localStorage.removeItem('role');
+    // localStorage.removeItem('id');
+    // localStorage.removeItem('email');
+    // localStorage.removeItem('role');
   }
 
   return {
