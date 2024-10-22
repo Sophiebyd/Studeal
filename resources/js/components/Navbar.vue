@@ -1,21 +1,14 @@
 <template>
   <nav class="navbar navbar-expand-lg">
-    <span>{{ userStore.user.email }}</span>
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">
+      <router-link class="navbar-brand" to="/">
         <img src="../../../public/img/Logo.png" alt="Logo" class="logo" />
-      </a>
+      </router-link>
+      <span class="userAddress">{{ userStore.user.email }}</span>
       <div class="d-flex ms-auto align-items-center">
-        <!-- Bouton Ajouter une annonce-->
         <button class="btn btn-annonce me-3" data-bs-toggle="modal" data-bs-target="#addAnnouncementModal">
           + Ajouter une annonce
         </button>
-        <!-- Barre de recherche-->
-        <form class="d-flex me-3" role="search">
-          <input class="form-control search-bar" type="search" placeholder="Barre de recherche" aria-label="Search" />
-        </form>
-
-        <!-- Bouton Menu -->
         <ul class="navbar-nav">
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle menu-link" href="#" role="button" data-bs-toggle="dropdown"
@@ -23,7 +16,9 @@
               Menu
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
-              <li><button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#loginModal">Connexion</button></li>
+              <li><button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#loginModal">Connexion</button>
+              </li>
+              <li><router-link class="dropdown-item" to="/profil">Profil</router-link></li>
               <li><router-link class="dropdown-item" to="/colocation">Colocation</router-link></li>
               <li><router-link class="dropdown-item" to="/covoiturage">Covoiturage</router-link></li>
               <li><router-link class="dropdown-item" to="/vente-meubles">Ventes de meubles</router-link></li>
@@ -36,7 +31,8 @@
   </nav>
 
   <!-- Modal pour Ajouter une annonce -->
-  <div class="modal fade" id="addAnnouncementModal" tabindex="-1" aria-labelledby="addAnnouncementLabel" aria-hidden="true">
+  <div class="modal fade" id="addAnnouncementModal" tabindex="-1" aria-labelledby="addAnnouncementLabel"
+    aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -82,19 +78,20 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="loginModalLabel">Connexion</h5>
-          <button type="button" class="btn-close" id="loginModalClose" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close" id="loginModalClose" data-bs-dismiss="modal"
+            aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <form @submit.prevent="authenticate">
             <div class="mb-3">
               <label for="emailLogin" class="form-label">Adresse email</label>
               <input type="email" class="form-control" id="emailLogin" v-model="login.email" />
-              <FormError :messages="errors?.email"/>
+              <FormError :messages="errors?.email" />
             </div>
             <div class="mb-3">
               <label for="passwordLogin" class="form-label">Mot de passe</label>
               <input type="password" class="form-control" id="passwordLogin" v-model="login.password" />
-              <FormError :messages="errors?.password"/>
+              <FormError :messages="errors?.password" />
             </div>
             <div class="modal-footer">
               <input type="submit" class="btn btn-primary" value="Connexion" />
@@ -103,8 +100,10 @@
           </form>
         </div>
         <div class="text-center mt-2">
-          <button class="btn btn-link" data-bs-toggle="modal" data-bs-target="#signupModal" data-bs-dismiss="modal" @click="changeModal">Inscription</button> |
-          <button class="btn btn-link" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal" data-bs-dismiss="modal" @click="changeModal">Mot de passe oublié</button>
+          <button class="btn btn-link" data-bs-toggle="modal" data-bs-target="#signupModal" data-bs-dismiss="modal"
+            @click="changeModal">Inscription</button> |
+          <button class="btn btn-link" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal"
+            data-bs-dismiss="modal" @click="changeModal">Mot de passe oublié</button>
         </div>
       </div>
     </div>
@@ -116,62 +115,67 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="signupModalLabel">Inscription</h5>
-          <button type="button" class="btn-close" id="signupModalClose" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close" id="signupModalClose" data-bs-dismiss="modal"
+            aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <form @submit.prevent="register">
             <div class="mb-3">
               <label for="firstName" class="form-label">Prénom</label>
               <input type="text" class="form-control" id="firstName" v-model="subscribe.first_name" />
-              <FormError :messages="errors?.first_name"/>
+              <FormError :messages="errors?.first_name" />
             </div>
             <div class="mb-3">
               <label for="lastName" class="form-label">Nom</label>
               <input type="text" class="form-control" id="lastName" v-model="subscribe.last_name" />
-              <FormError :messages="errors?.last_name"/>
+              <FormError :messages="errors?.last_name" />
             </div>
             <div class="mb-3">
               <label for="emailSignup" class="form-label">Email</label>
               <input type="email" class="form-control" id="emailSignup" v-model="subscribe.email" />
-              <FormError :messages="errors?.email"/>
+              <FormError :messages="errors?.email" />
             </div>
             <div class="mb-3">
               <label for="dob" class="form-label">Date de naissance</label>
               <input type="date" class="form-control" id="dob" v-model="subscribe.birthday" />
-              <FormError :messages="errors?.birthday"/>
+              <FormError :messages="errors?.birthday" />
             </div>
             <div class="mb-3">
               <label for="phone" class="form-label">Téléphone</label>
               <input type="text" class="form-control" id="phone" v-model="subscribe.phone" />
-              <FormError :messages="errors?.phone"/>
+              <FormError :messages="errors?.phone" />
             </div>
             <div class="mb-3">
               <label for="passwordSignup" class="form-label">Mot de passe</label>
               <input type="password" class="form-control" id="passwordSignup" v-model="subscribe.password" />
-              <FormError :messages="errors?.password"/>
+              <FormError :messages="errors?.password" />
             </div>
             <div class="mb-3">
               <label for="confirmPasswordSignup" class="form-label">Confirmer le mot de passe</label>
-              <input type="password" class="form-control" id="confirmPasswordSignup" v-model="subscribe.password_confirmation" />
-              <FormError :messages="errors?.password_confirmation"/>
+              <input type="password" class="form-control" id="confirmPasswordSignup"
+                v-model="subscribe.password_confirmation" />
+              <FormError :messages="errors?.password_confirmation" />
             </div>
             <div class="modal-footer">
-              <input type="submit" class="btn btn-primary" value="S'inscrire"/>
+              <input type="submit" class="btn btn-primary" value="S'inscrire" />
               <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
             </div>
           </form>
         </div>
 
         <div class="text-center mt-2">
-          <button class="btn btn-link" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal" @click="changeModal">Connexion</button> |
-          <button class="btn btn-link" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal" data-bs-dismiss="modal" @click="changeModal">Mot de passe oublié</button>
+          <button class="btn btn-link" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal"
+            @click="changeModal">Connexion</button> |
+          <button class="btn btn-link" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal"
+            data-bs-dismiss="modal" @click="changeModal">Mot de passe oublié</button>
         </div>
       </div>
     </div>
   </div>
 
   <!-- Modal pour Mot de passe oublié -->
-  <div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="forgotPasswordModalLabel" aria-hidden="true">
+  <div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="forgotPasswordModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -191,8 +195,10 @@
           <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
         </div>
         <div class="text-center mt-2">
-          <button class="btn btn-link" data-bs-toggle="modal" data-bs-target="#signupModal" data-bs-dismiss="modal" @click="changeModal">Inscription</button> |
-          <button class="btn btn-link" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal" @click="changeModal">Connexion</button>
+          <button class="btn btn-link" data-bs-toggle="modal" data-bs-target="#signupModal" data-bs-dismiss="modal"
+            @click="changeModal">Inscription</button> |
+          <button class="btn btn-link" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal"
+            @click="changeModal">Connexion</button>
         </div>
       </div>
     </div>
@@ -203,7 +209,7 @@
 <script setup>
 import { notification } from 'ant-design-vue';
 import { ref } from 'vue';
-import * as AuthService  from '../_services/AuthService';
+import * as AuthService from '../_services/AuthService';
 import FormError from './FormError.vue';
 import { useUserStore } from '@/stores/User';
 
@@ -321,6 +327,10 @@ function authenticate() {
   .menu-link {
     font-size: 0.85rem;
     padding: 3px 10px;
+  }
+
+  .userAddress {
+    color: white;
   }
 }
 </style>

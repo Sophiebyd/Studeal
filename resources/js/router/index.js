@@ -6,6 +6,7 @@ import Colocation from '../components/Colocation.vue'
 import Covoiturage from '../components/Covoiturage.vue'
 import VenteDeMeubles from '../components/VenteDeMeubles.vue' 
 import SoutienScolaire from '../components/SoutienScolaire.vue'
+import Profil from '../components/Profil.vue'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -15,6 +16,7 @@ const router = createRouter({
         { path: '/covoiturage', name: 'Covoiturage', component: Covoiturage},
         { path: '/vente-meubles', name: 'VenteDeMeubles', component: VenteDeMeubles},
         { path: '/soutien-scolaire', name: 'SoutienScolaire', component: SoutienScolaire },
+        { path: '/profil', name: 'Profil', component: Profil },
     ]
 });
 
