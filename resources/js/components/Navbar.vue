@@ -326,6 +326,7 @@ function logout() {
 
 .userAddress {
   color: white;
+  text-decoration: none;
 }
 
 .modal-footer .btn {

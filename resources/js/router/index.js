@@ -7,6 +7,8 @@ import Covoiturage from '../components/Covoiturage.vue'
 import VenteDeMeubles from '../components/VenteDeMeubles.vue' 
 import SoutienScolaire from '../components/SoutienScolaire.vue'
 import Profil from '../components/Profil.vue'
+import Contact from '../components/Contact.vue'
+import Condition from '../components/Condition.vue'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -17,6 +19,8 @@ const router = createRouter({
         { path: '/vente-meubles', name: 'VenteDeMeubles', component: VenteDeMeubles},
         { path: '/soutien-scolaire', name: 'SoutienScolaire', component: SoutienScolaire },
         { path: '/profil', name: 'Profil', component: Profil },
+        { path: '/contact', name: 'Contact', component: Contact },
+        { path: '/condition', name: 'Condition', component: Condition },
     ]
 });
 

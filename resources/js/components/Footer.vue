@@ -1,13 +1,13 @@
 <template>
     <footer class="footer">
         <div class="footer-container">
-            <a href="/" class="footer-logo">
+            <router-link to="/" class="footer-logo">
                 <img src="../../../public/img/logo.png" alt="Logo" class="logo-img" />
-            </a>
+            </router-link>
 
             <div class="footer-links">
-                <a href="/conditions" class="text-decoration-none text-white me-4">Conditions générales</a>
-                <a href="/contact" class="text-decoration-none text-white">Contact</a>
+                <router-link to="/condition" class="text-decoration-none text-white">Conditions générales</router-link>
+                <router-link to="/contact" class="text-decoration-none text-white">Contact</router-link>
             </div>
         </div>
     </footer>
