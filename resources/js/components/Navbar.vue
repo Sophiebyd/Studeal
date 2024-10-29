@@ -6,7 +6,7 @@
       </router-link>
 
       <!-- Affiche l'email uniquement si l'utilisateur est connecté -->
-      <router-link class="userAddress" v-if="userStore.isLogged" :to="'/profil/' + userStore.user.id">
+      <router-link class="userAddress" v-if="userStore.isLogged" to="/profil">
         {{ userStore.user.email }}
       </router-link>
 
@@ -27,7 +27,7 @@
 
               <!-- Affiche le lien vers le profil avec l'ID de l'utilisateur si connecté -->
               <li v-if="userStore.isLogged">
-                <router-link class="dropdown-item" :to="'/profil/' + userStore.user.id">Profil</router-link>
+                <router-link class="dropdown-item" to="/profil">Profil</router-link>
               </li>
 
               <li><router-link class="dropdown-item" to="/colocation">Colocation</router-link></li>
