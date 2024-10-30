@@ -63,7 +63,17 @@
               <input type="text" class="form-control" id="title" />
             </div>
             <div class="mb-3">
-              <label for="address" class="form-label">Adresse</label>
+              <label for="category" class="form-label">Catégorie</label>
+              <!-- Menu déroulant pour les catégories -->
+              <select v-model="CategoryProfil" class="form-select" id="category">
+                <option value="colocation">Colocation</option>
+                <option value="covoiturage">Covoiturage</option>
+                <option value="vente_meubles">Vente de meubles</option>
+                <option value="soutien_scolaire">Soutien Scolaire</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="address" class="form-label">Lieu</label>
               <input type="text" class="form-control" id="address" />
             </div>
             <div class="mb-3">
@@ -152,8 +162,8 @@
               <FormError :messages="errors?.email" />
             </div>
             <div class="mb-3">
-              <label for="dob" class="form-label">Date de naissance</label>
-              <input type="date" class="form-control" id="dob" v-model="subscribe.birthday" />
+              <label for="date" class="form-label">Date de naissance</label>
+              <input type="date" class="form-control" id="date" v-model="subscribe.birthday" />
               <FormError :messages="errors?.birthday" />
             </div>
             <div class="mb-3">
