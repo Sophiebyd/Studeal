@@ -4,7 +4,7 @@ import { getArticle } from '../_services/ArticleService';
 
 export const useArticleStore = defineStore('article', () => {
     const newArticles = ref([]); 
-    
+
     // Fonction pour récupérer les 10 derniers articles
     async function latestArticles() {
         try {

@@ -77,7 +77,7 @@
               <input type="text" class="form-control" id="address" />
             </div>
             <div class="mb-3">
-              <label for="price" class="form-label">Prix</label>
+              <label for="price" class="form-label">Prix (€)</label>
               <input type="text" class="form-control" id="price" />
             </div>
             <div class="mb-3">
@@ -91,8 +91,8 @@
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
           <button type="button" class="btn btn-primary">Envoyer</button>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
         </div>
       </div>
     </div>

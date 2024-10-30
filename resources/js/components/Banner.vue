@@ -67,8 +67,8 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
                         <button type="button" class="btn btn-primary">Envoyer</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
                     </div>
                 </div>
             </div>
@@ -165,6 +165,7 @@ function resetSignupFields() {
     };
 }
 
+// Fonction d'inscription de l'utilisateur
 function register() {
     AuthService.register(signup.value).then(() => {
         errors.value = {};
