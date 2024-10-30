@@ -23,15 +23,14 @@ class StoreCommandRequest extends FormRequest
     {
         return [
             'price' => 'required|Number|digite:1, 4',
+            'title' => 'required|string|min:2|max:50'
         ];
     }
 
     public function messages()
     {
         return [
-            'price.required' => 'Le prix est requis.',
-            'price.numeric' => 'Le prix doit être un nombre.',
-            'price.digits_between' => 'Le prix doit avoir entre 1 et 4 chiffres.',
+            ///
         ];
     }
 }

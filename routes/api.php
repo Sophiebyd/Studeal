@@ -38,8 +38,11 @@ Route::get('/articles', [ArticleController::class, 'index']);
 
 ///////////////////////////// Post ////////////////////////////////////////////////////////////
 
-Route::post('/register', [RegisterController::class, 'register'])->name('register');
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth:web');
+Route::middleware('web')->group(function () {
+    Route::post('/register', [RegisterController::class, 'register'])->name('register');
+    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+    Route::post('/login', [LoginController::class, 'login'])->name('login');
+});
 
 ///////////////////////////// Patch ////////////////////////////////////////////////////////////
 

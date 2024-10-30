@@ -52,7 +52,8 @@
                 </div>
                 <div class="mb-3 row mt-5">
                     <div class="col-12 d-flex justify-content-center">
-                        <button type="submit" class="btn btn-primary me-2">Modifier le profil</button>
+                        <button type="button" class="btn btn-primary me-2" data-bs-toggle="modal"
+                        data-bs-target="#confirmProfilModal">Modifier le profil</button>
                         <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                             data-bs-target="#confirmDeleteModal">
                             Supprimer le compte
@@ -60,6 +61,26 @@
                     </div>
                 </div>
             </form>
+        </div>
+    </div>
+
+        <!-- Modal pour la modification du compte -->
+        <div class="modal fade" id="confirmProfilModal" tabindex="-1" aria-labelledby="confirmProfilModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmProfilModalLabel">Confirmer la modification</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Êtes-vous sûr de vouloir modifier votre profil ?.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" @click="confirmProfil">Oui</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Non</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -101,6 +122,15 @@ const confirmDelete = () => {
         router.push('/');
     } catch (error) {
         console.error("Erreur lors de la suppression du compte", error);
+    }
+}
+
+const confirmProfil = () => {
+    try {
+        AuthService.modification()
+        router.push('/profil')
+    } catch (error) {
+        console.error("Erreur lors de la modification du compte", error)
     }
 }
 

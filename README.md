@@ -82,3 +82,6 @@ storage/logs/laravel.log
 
 ## relancer migration + factories 
 php artisan migrate:fresh --seed
+
+## créer une requête 
+php artisan make:request StorePostRequest

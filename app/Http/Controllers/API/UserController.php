@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\File;
+use App\Http\Requests\UpdateUserRequest;
 
 class UserController extends Controller
 {
@@ -77,7 +78,7 @@ class UserController extends Controller
     }
 
     // Fonction pour mettre à jour les informations d'un utilisateur
-    public function update(StoreUserRequest $request, User $user)
+    public function update(UpdateUserRequest $request, User $user)
     {
         $user->update($request->all());
 

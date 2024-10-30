@@ -1,11 +1,11 @@
 <?php
 
 namespace App\Http\Requests;
-use Illuminate\Validation\Rules\Password;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Password;
 
-class StoreUserRequest extends FormRequest
+class UpdateUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,26 +24,19 @@ class StoreUserRequest extends FormRequest
     {
         return [
             'picture' => 'nullable|image|mimes:jpg,jpeg,png,svg|max:2048',
-            'last_name' => 'required|string|min:2|max:30',
-            'first_name' => 'required|string|min:2|max:30',
-            'birthday' => 'required|date',
-            'phone' => 'required|digits:10',
-            'email' => 'required|unique:users|string|max:50',
+            'last_name' => 'nullable|string|min:2|max:30',
+            'first_name' => 'nullable|string|min:2|max:30',
+            'birthday' => 'nullable|date',
+            'phone' => 'nullable|digits:10',
+            'email' => 'nullable|unique:users|string|max:50',
             'password' => [
                 'required', 'confirmed',
-                Password::min(8)
+                Password::min(8) // minimum 8 caractères   
                     ->mixedCase() // au moins 1 minuscule et une majuscule
-                    ->letters()
-                    ->numbers()
-                    ->symbols()
+                    ->letters()  // au moins une lettre
+                    ->numbers() // au moins un chiffre
+                    ->symbols() // au moins un caractère spécial parmi ! @ # $ % ^ & * ?  
             ],
-        ];
-    }
-
-    public function messages()
-    {
-        return [
-            ///
         ];
     }
 }

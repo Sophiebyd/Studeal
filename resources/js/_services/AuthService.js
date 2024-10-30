@@ -9,9 +9,11 @@ export async function register(data) {
 
 // requête connexion
 export async function authenticate(data) {
-    const res = await Axios.post('/login', data, {
-        baseURL: 'http://localhost:8000'
-    });
+    // await Axios.get('/sanctum/csrf-cookie', {
+    //     baseURL: 'http://localhost:8000/'
+    // });
+
+    const res = await Axios.post('/login', data);
 
     const userStore = useUserStore();
     userStore.setUser({
@@ -30,7 +32,10 @@ export async function authenticate(data) {
 // requête modification du profil
 export const modification = async () => {
     const userStore = useUserStore();
-    await Axios.patch('/api/users/' + userStore.user.id, {
+    await Axios.get('/sanctum/csrf-cookie', {
+        baseURL: 'http://localhost:8000/'
+    });
+    await Axios.put('/users/' + userStore.user.id, {
         first_name: userStore.user.first_name,
         last_name: userStore.user.last_name,
         email: userStore.user.email,
