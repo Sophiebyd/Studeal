@@ -42,8 +42,13 @@ export const modification = async () => {
         birthday: userStore.user.birthday,
         phone: userStore.user.phone
     })
-    userStore.setUser(response.data.user);
-    alert(response.data.message);
+        .then(response => {
+            userStore.setUser(response.data.user);
+            alert(response.data.message);
+        })
+        .catch(error => {
+            console.error(error);
+        })
 }
 
 // requête supprimer le profil

@@ -30,7 +30,7 @@ class UpdateUserRequest extends FormRequest
             'phone' => 'nullable|digits:10',
             'email' => 'nullable|unique:users|string|max:50',
             'password' => [
-                'required', 'confirmed',
+                'nullable', 'confirmed',
                 Password::min(8) // minimum 8 caractères   
                     ->mixedCase() // au moins 1 minuscule et une majuscule
                     ->letters()  // au moins une lettre

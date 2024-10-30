@@ -1,7 +1,7 @@
 <template>
     <div class="text-center mt-5">
         <img src="../../../public/img/default.jpg" class="rounded image" alt="picture">
-        <div class="mb-3 row mt-3">
+        <div class="mb-3 row mt-3 mx-0">
             <div>
                 <button type="submit" class="btn btn-primary me-2">Modifier l'avatar</button>
             </div>

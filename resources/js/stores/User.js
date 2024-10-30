@@ -54,7 +54,10 @@ export const useUserStore = defineStore('user', () => {
     
     // localStorage.removeItem('id');
     // localStorage.removeItem('email');
-    // localStorage.removeItem('role');
+    // localStorage.removeItem('first_name');
+    // localStorage.removeItem('last_name');
+    // localStorage.removeItem('birthday');
+    // localStorage.removeItem('phone');
   }
 
   return {
