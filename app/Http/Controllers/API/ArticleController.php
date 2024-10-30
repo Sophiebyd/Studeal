@@ -38,6 +38,7 @@ class ArticleController extends Controller
     {
         $article = Article::create([
             'title' => $request->title,
+            'address' => $request->address,
             'content' => $request->content,
             'price' => $request->price,
             'category_id' => $request->category_id,
@@ -70,6 +71,7 @@ class ArticleController extends Controller
     {
         $article->update([
             'title' => $request->title,
+            'address' => $request->address,
             'content' => $request->content,
             'price' => $request->price,
             'category_id' => $request->category_id,

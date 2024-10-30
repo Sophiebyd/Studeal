@@ -23,6 +23,7 @@ class UpdateArticleRequest extends FormRequest
     {
         return [
             'title' => 'required|string|min:2|max:50',
+            'address'=> 'nullable|string|min:2|max 100',
             'content' => 'nullable|string|min:2|max:5000',
             'price' => 'nullable|numeric|min:0|max:300'
         ];

@@ -22,6 +22,7 @@ class ArticleFactory extends Factory
     {
         return [
             'title' => fake()->word(1),
+            'address'=> fake()->city,
             'content' => fake()->paragraph,
             'category_id'=> rand(1, Category::count()),
             'user_id'=> rand(1, User::count()),

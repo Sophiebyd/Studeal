@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('title', 50);
+            $table->string('address', 100);
             $table->text('content');
             $table->decimal('price', 8, 2);
 
