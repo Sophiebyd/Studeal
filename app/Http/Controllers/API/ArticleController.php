@@ -11,22 +11,28 @@ use App\Http\Requests\UpdateArticleRequest;
 class ArticleController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of all articles.
      */
-
-    // middleware sanctum
-    public function __construct()
-    {
-        $this->middleware('auth:sanctum')->except('index, show');
-    }
-
     public function index()
     {
         $articles = Article::all();
 
         return response()->json([
             'status' => true,
-            'message' => 'Tous les articles avec succès',
+            'message' => 'Tous les articles récupérés avec succès',
+            'article' => $articles,
+        ]);
+    }
+
+    public function latest()
+    {
+        $articles = Article::orderBy('created_at', 'desc') 
+                            ->take(10)
+                            ->get();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Les 10 dernières annonces récupérées avec succès',
             'article' => $articles,
         ]);
     }

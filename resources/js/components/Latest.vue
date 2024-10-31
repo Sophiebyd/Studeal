@@ -1,9 +1,10 @@
 <template>
     <section class="latest-ads my-5">
         <h2 class="text-center">Les dernières annonces</h2>
-        <div class="container">
+        <div class="container-fluid">
             <div class="row justify-content-center">
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 d-flex flex-column align-items-center" v-for="ad in ads" :key="ad.id">
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 d-flex flex-column align-items-center"
+                    v-for="ad in latestArticles" :key="ad.id">
                     <div class="card mb-4" style="width: 100%;">
                         <img :src="ad.image" class="card-img-top" :alt="ad.title">
                         <div class="card-body text-center">
@@ -17,20 +18,16 @@
     </section>
 </template>
 
-<script>
-export default {
-    data() {
-        return {
-            ads: [
-                { id: 1, title: 'Appartement à louer', price: 500, image: '/images/ad1.png' },
-                { id: 2, title: 'Voiture à vendre', price: 2500, image: '/images/ad2.png' },
-                { id: 3, title: 'Meuble à vendre', price: 150, image: '/images/ad3.png' },
-                { id: 4, title: 'Soutien scolaire', price: 20, image: '/images/ad4.png' },
-                { id: 5, title: 'Colocation à partager', price: 300, image: '/images/ad5.png' },
-            ],
-        };
-    },
-};
+<script setup>
+import { ref, onMounted } from 'vue';
+import * as ArticleService from '../_services/ArticleService';
+
+const latestArticles = ref([]);
+
+onMounted(async () => {
+    latestArticles.value = await ArticleService.getLatestArticles();
+    console.log(latestArticles.value);
+});
 </script>
 
 <style scoped>
@@ -58,23 +55,23 @@ h2 {
 }
 
 .row {
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .col-12 {
     margin-bottom: 1.5rem;
 }
 
-/* responsives */
+/* Responsives */
 @media (min-width: 1200px) {
     .row {
-        justify-content: center;
-        flex-wrap: nowrap;
+        justify-content: space-around;
+        flex-wrap: wrap;
     }
 
-    .col-xl-3 {
-        flex: 0 0 auto;
-        max-width: 23%; 
+    .col-xl-2 {
+        flex: 0 0 19%;
+        max-width: 19%;
     }
 
     .card-img-top {
@@ -96,7 +93,7 @@ h2 {
 
 @media (max-width: 768px) {
     .col-md-4 {
-        max-width: 48%; 
+        max-width: 48%;
     }
 
     .card-img-top {
@@ -114,7 +111,7 @@ h2 {
 
 @media (max-width: 576px) {
     .col-sm-6 {
-        max-width: 100%; 
+        max-width: 100%;
     }
 
     .card-img-top {
