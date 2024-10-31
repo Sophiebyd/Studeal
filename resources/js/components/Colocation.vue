@@ -62,15 +62,15 @@ onMounted(async () => {
     console.log(ArticlesCategory.value);
 });
 
-// Propriété calculée pour filtrer et trier les annonces
+// Filtrer et trier les annonces
 const filteredAds = computed(() => {
-    // Filtrer les articles en fonction de la recherche
+    // Filtrer les articles
     let filtered = ArticlesCategory.value.filter(ad => 
         ad.title.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
         ad.address.toLowerCase().includes(searchQuery.value.toLowerCase())
     );
 
-    // Trier les articles en fonction de l'option sélectionnée
+    // Trier les articles
     if (selectedSort.value === 'recent') {
         return filtered.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
     } else if (selectedSort.value === 'oldest') {

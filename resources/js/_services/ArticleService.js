@@ -27,7 +27,7 @@ export async function getCategory2() {
 // Récupérer les articles de la category_1
 export async function getCategory3() {
     const res = await Axios.get('/category_3');
-    return res.data.articcategory_1
+    return res.data.article;
 }
 // Récupérer les articles de la category_4
 export async function getCategory4() {
