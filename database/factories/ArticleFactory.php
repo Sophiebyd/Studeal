@@ -27,6 +27,7 @@ class ArticleFactory extends Factory
             'category_id'=> rand(1, Category::count()),
             'user_id'=> rand(1, User::count()),
             'price' => fake()->randomFloat(2, 10, 9999),
+            'created_at'=>fake()->date('Y-m-d'),
         ];
     }
 }

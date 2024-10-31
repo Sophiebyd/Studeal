@@ -15,7 +15,8 @@ class Article extends Model
         'price',
         'content',
         'picture',
-        'category_id'
+        'category_id',
+        'created_at'
     ];
 
     public function user()

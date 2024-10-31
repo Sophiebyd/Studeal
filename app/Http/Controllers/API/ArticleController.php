@@ -26,13 +26,57 @@ class ArticleController extends Controller
 
     public function latest()
     {
-        $articles = Article::orderBy('created_at', 'desc') 
+        $articles = Article::orderBy('created_at', 'desc')
                             ->take(10)
                             ->get();
 
         return response()->json([
             'status' => true,
             'message' => 'Les 10 dernières annonces récupérées avec succès',
+            'article' => $articles,
+        ]);
+    }
+
+    public function articlesByCategory1()
+    {
+        $articles = Article::where('category_id', 1)->get();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Articles avec category_id 1 récupérés avec succès',
+            'article' => $articles,
+        ]);
+    }
+
+    public function articlesByCategory2()
+    {
+        $articles = Article::where('category_id', 2)->get();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Articles avec category_id 2 récupérés avec succès',
+            'article' => $articles,
+        ]);
+    }
+
+    public function articlesByCategory3()
+    {
+        $articles = Article::where('category_id', 3)->get();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Articles avec category_id 3 récupérés avec succès',
+            'article' => $articles,
+        ]);
+    }
+
+    public function articlesByCategory4()
+    {
+        $articles = Article::where('category_id', 4)->get();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Articles avec category_id 4 récupérés avec succès',
             'article' => $articles,
         ]);
     }

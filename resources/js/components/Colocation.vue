@@ -39,9 +39,9 @@
                 <tbody>
                     <tr v-for="(ad, index) in filteredAds" :key="index">
                         <td>{{ ad.title }}</td>
-                        <td>{{ ad.location }}</td>
+                        <td>{{ ad.address }}</td>
                         <td>{{ ad.price }}</td>
-                        <td>{{ ad.date }}</td>
+                        <td>{{ new Date(ad.created_at).toLocaleDateString("fr-FR") }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -50,30 +50,31 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
+import * as ArticleService from '../_services/ArticleService';
 
-// Définition des propriétés réactives
+const ArticlesCategory = ref([]);
 const searchQuery = ref('');
 const selectedSort = ref('recent');
-const ads = ref([
-    { title: 'Chambre à louer dans un appartement', location: 'Paris', price: 500, date: '30/10/2021' },
-    { title: 'Colocation étudiante', location: 'Lyon', price: 350, date: '30/10/2021' },
-    { title: 'Chambre en colocation', location: 'Marseille', price: 400, date: '30/10/2021' },
-    { title: 'Appartement partagé', location: 'Toulouse', price: 450, date: '30/10/2021' },
-    { title: 'Chambre avec vue', location: 'Nice', price: 600, date: '30/10/2021' },
-]);
+
+onMounted(async () => {
+    ArticlesCategory.value = await ArticleService.getCategory1(); 
+    console.log(ArticlesCategory.value);
+});
 
 // Propriété calculée pour filtrer et trier les annonces
 const filteredAds = computed(() => {
-    let filtered = ads.value.filter(ad => 
+    // Filtrer les articles en fonction de la recherche
+    let filtered = ArticlesCategory.value.filter(ad => 
         ad.title.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-        ad.location.toLowerCase().includes(searchQuery.value.toLowerCase())
+        ad.address.toLowerCase().includes(searchQuery.value.toLowerCase())
     );
 
+    // Trier les articles en fonction de l'option sélectionnée
     if (selectedSort.value === 'recent') {
-        return filtered;
+        return filtered.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
     } else if (selectedSort.value === 'oldest') {
-        return filtered.reverse();
+        return filtered.sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
     } else if (selectedSort.value === 'priceAsc') {
         return filtered.sort((a, b) => a.price - b.price);
     } else if (selectedSort.value === 'priceDesc') {
@@ -127,4 +128,3 @@ h1 {
     }
 }
 </style>
-
