@@ -5,7 +5,7 @@
             <div class="row justify-content-center">
                 <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 d-flex flex-column align-items-center"
                     v-for="ad in latestArticles" :key="ad.id">
-                    <div class="card mb-4" style="width: 100%;">
+                    <div class="card mb-4" style="width: 85%;">
                         <img :src="ad.image" class="card-img-top" :alt="ad.title">
                         <div class="card-body text-center">
                             <h5 class="card-title">{{ ad.title }}</h5>
@@ -42,15 +42,16 @@ h2 {
 
 .card {
     border: 1px solid #ddd;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .card-body {
     text-align: center;
+    padding: 0.7rem;
 }
 
 .card-img-top {
-    height: 160px;
+    height: 110px;
     object-fit: cover;
 }
 
@@ -59,7 +60,7 @@ h2 {
 }
 
 .col-12 {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 /* Responsives */
@@ -70,24 +71,24 @@ h2 {
     }
 
     .col-xl-2 {
-        flex: 0 0 19%;
-        max-width: 19%;
+        flex: 0 0 17%;
+        max-width: 17%;
     }
 
     .card-img-top {
-        height: 220px;
+        height: 170px;
     }
 
     .card-body {
-        padding: 1.2rem;
+        padding: 0.9rem;
     }
 
     .card-title {
-        font-size: 1.4rem;
+        font-size: 1.15rem;
     }
 
     .card-text {
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
 }
 
@@ -97,15 +98,15 @@ h2 {
     }
 
     .card-img-top {
-        height: 160px;
+        height: 100px;
     }
 
     .card-title {
-        font-size: 1.2rem;
+        font-size: 1.05rem;
     }
 
     .card-text {
-        font-size: 1rem;
+        font-size: 0.9rem;
     }
 }
 
@@ -115,15 +116,15 @@ h2 {
     }
 
     .card-img-top {
-        height: 150px;
+        height: 90px; 
     }
 
     .card-title {
-        font-size: 1.1rem;
+        font-size: 0.95rem;
     }
 
     .card-text {
-        font-size: 0.95rem;
+        font-size: 0.85rem;
     }
 }
 </style>

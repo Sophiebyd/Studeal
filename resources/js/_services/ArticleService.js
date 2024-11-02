@@ -18,13 +18,13 @@ export async function getCategory1() {
     return res.data.article;
 }
 
-// Récupérer les articles de la category_1
+// Récupérer les articles de la category_2
 export async function getCategory2() {
     const res = await Axios.get('/category_2');
     return res.data.article;
 }
 
-// Récupérer les articles de la category_1
+// Récupérer les articles de la category_3
 export async function getCategory3() {
     const res = await Axios.get('/category_3');
     return res.data.article;
