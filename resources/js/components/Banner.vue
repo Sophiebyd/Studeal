@@ -30,35 +30,39 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="addAnnouncementBannerLabel">Ajouter une annonce</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                            id="addArticleClose"></button>
                     </div>
                     <div class="modal-body">
-                        <form>
+                        <form @submit.prevent="addArticle">
                             <div class="mb-3">
                                 <label for="titleBanner" class="form-label">Titre</label>
-                                <input type="text" class="form-control" id="titleBanner" />
+                                <input type="text" class="form-control" id="titleBanner" v-model="article.title" />
+                                <FormError :messages="errors?.title" />
                             </div>
                             <div class="mb-3">
                                 <label for="categoryBanner" class="form-label">Catégorie</label>
-                                <!-- Menu déroulant pour les catégories -->
-                                <select v-model="selectedCategory" class="form-select" id="categoryBanner">
-                                    <option value="colocation">Colocation</option>
-                                    <option value="covoiturage">Covoiturage</option>
-                                    <option value="vente_meubles">Vente de meubles</option>
-                                    <option value="soutien_scolaire">Soutien Scolaire</option>
+                                <select v-model="article.category_id" class="form-select" id="categoryBanner" required>
+                                    <option v-for="category in categories" :key="category.id" :value="category.id">
+                                        {{ category.name }}
+                                    </option>
                                 </select>
+                                <FormError :messages="errors?.category_id" />
                             </div>
                             <div class="mb-3">
                                 <label for="addressBanner" class="form-label">Lieu</label>
-                                <input type="text" class="form-control" id="addressBanner" />
+                                <input type="text" class="form-control" id="addressBanner" v-model="article.address" />
+                                <FormError :messages="errors?.address" />
                             </div>
                             <div class="mb-3">
                                 <label for="priceBanner" class="form-label">Prix</label>
-                                <input type="text" class="form-control" id="priceBanner" />
+                                <input type="text" class="form-control" id="priceBanner" v-model="article.price" />
+                                <FormError :messages="errors?.price" />
                             </div>
                             <div class="mb-3">
                                 <label for="messageBanner" class="form-label">Message</label>
-                                <textarea class="form-control" id="messageBanner" rows="3"></textarea>
+                                <textarea class="form-control" id="messageBanner" rows="3" v-model="article.content"></textarea>
+                                <FormError :messages="errors?.content" />
                             </div>
                             <div class="mb-3">
                                 <label for="imageUploadBanner" class="form-label">Télécharger une image</label>
@@ -67,7 +71,7 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary">Envoyer</button>
+                        <input type="submit" class="btn btn-primary" value="Publier" />
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
                     </div>
                 </div>
@@ -141,19 +145,30 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { notification } from 'ant-design-vue';
-import * as AuthService from '../_services/AuthService';
 import { useUserStore } from '@/stores/User';
+import * as AuthService from '../_services/AuthService';
+import * as CategoryService from '../_services/CategoryService';
+import * as ArticleService from '../_services/ArticleService';
 import FormError from './FormError.vue';
 
 const userStore = useUserStore();
 const [api, contextHolder] = notification.useNotification();
 
-let signup = ref({});
 let errors = ref({});
+let signup = ref({});
+let article = ref({
+    title: '',
+    address: '',
+    content: '',
+    price: '',
+    category_id: ''
+});
 
-function resetSignupFields() {
+const categories = ref([]);
+
+function resetSignup() {
     signup.value = {
         first_name: '',
         last_name: '',
@@ -169,7 +184,7 @@ function resetSignupFields() {
 function register() {
     AuthService.register(signup.value).then(() => {
         errors.value = {};
-        resetSignupFields();
+        resetSignup();
         api.success({ message: 'Inscription réussie' });
         document.getElementById('signupBannerModal');
         router.push('/')
@@ -179,6 +194,30 @@ function register() {
         }
     });
 }
+
+// Fonction pour ajouter un article
+function addArticle() {
+    ArticleService.newArticle(article.value).then(() => {
+        document.getElementById('addArticleClose').click();
+        api.info({ message: `Création de l'article réussite` });
+    }).catch(error => {
+        if (error.response && error.response.data.errors) {
+            errors.value = error.response.data.errors;
+        }
+    });
+}
+
+// Fonction pour récupérer et afficher les catégories
+onMounted(async () => {
+    try {
+        const response = await CategoryService.getCategories();
+        categories.value = response.categories;
+        console.log(categories.value);
+    } catch (error) {
+        console.error('Erreur lors du chargement des catégories:', error);
+    }
+});
+
 </script>
 
 <style scoped>

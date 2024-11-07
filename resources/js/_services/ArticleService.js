@@ -34,3 +34,9 @@ export async function getCategory4() {
     const res = await Axios.get('/category_4');
     return res.data.article;
 }
+
+// créer un article
+export const newArticle = async () => {
+    const res = await Axios.store('/newArticle', data);
+    return res.data;
+}

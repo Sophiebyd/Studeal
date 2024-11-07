@@ -65,7 +65,7 @@
             <div class="mb-3">
               <label for="category" class="form-label">Catégorie</label>
               <!-- Menu déroulant pour les catégories -->
-              <select v-model="CategoryProfil" class="form-select" id="category">
+              <select class="form-select" id="category">
                 <option value="colocation">Colocation</option>
                 <option value="covoiturage">Covoiturage</option>
                 <option value="vente_meubles">Vente de meubles</option>
