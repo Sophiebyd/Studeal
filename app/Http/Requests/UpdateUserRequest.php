@@ -23,7 +23,7 @@ class UpdateUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'picture' => 'nullable|image|mimes:jpg,jpeg,png,svg|max:2048',
+            'picture' => 'nullable|image|mimes:jpg,jpeg,png,svg|max:15360',
             'last_name' => 'nullable|string|min:2|max:30',
             'first_name' => 'nullable|string|min:2|max:30',
             'birthday' => 'nullable|date',

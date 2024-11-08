@@ -4,9 +4,9 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Article;
-use Illuminate\Http\Request;
 use App\Http\Requests\StoreArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
+use Illuminate\Support\Facades\File;
 
 class ArticleController extends Controller
 {
@@ -27,8 +27,8 @@ class ArticleController extends Controller
     public function latest()
     {
         $articles = Article::orderBy('created_at', 'desc')
-                            ->take(10)
-                            ->get();
+            ->take(10)
+            ->get();
 
         return response()->json([
             'status' => true,
@@ -95,6 +95,14 @@ class ArticleController extends Controller
             'user_id' => auth()->user()->id,
         ]);
 
+        // si image présente alors enregistrement de l'image sur le disque et du chemin le champs avatar:
+        if ($request->file('picture')) {
+            $fileName = time() . '_' . $request->picture->getClientOriginalName();
+            $path = 'public/img/' . $fileName;
+            $picture = $path;
+            $request->picture->move(public_path('public/img'), $path);
+        }
+
         return response()->json([
             'message' => 'Article ajouté avec succès',
             'status' => true,
@@ -119,13 +127,21 @@ class ArticleController extends Controller
      */
     public function update(UpdateArticleRequest $request, Article $article)
     {
-        $article->update([
-            'title' => $request->title,
-            'address' => $request->address,
-            'content' => $request->content,
-            'price' => $request->price,
-            'category_id' => $request->category_id,
-        ]);
+        $article->update($request->except('picture'));
+
+        if ($request->file('picture')) {
+            // Supprimer l'ancienne image si elle existe
+            if ($article->picture && File::exists(public_path($article->picture))) {
+                File::delete(public_path($article->picture));
+            }
+
+            // Enregistrement de la nouvelle image
+            $fileName = time() . '_' . $request->picture->getClientOriginalName();
+            $path = 'public/img/' . $fileName;
+            $article->picture = $path;
+            $request->picture->move(public_path('public/img'), $fileName);
+            $article->save();
+        }
 
         return response()->json([
             'status' => true,
@@ -139,10 +155,13 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
+        if ($article->picture && File::exists(public_path($article->picture))) {
+            File::delete(public_path($article->picture));
+        }
+
         $article->delete();
         return response()->json([
             'status' => true,
-            'article' => $article,
             'message' => 'Article supprimé',
         ]);
     }

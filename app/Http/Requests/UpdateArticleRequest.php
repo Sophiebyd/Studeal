@@ -25,7 +25,8 @@ class UpdateArticleRequest extends FormRequest
             'title' => 'required|string|min:2|max:50',
             'address'=> 'nullable|string|min:2|max 100',
             'content' => 'nullable|string|min:2|max:5000',
-            'price' => 'nullable|numeric|min:0|max:300'
+            'price' => 'nullable|numeric|min:0|max:300',
+            'picture' => 'nullable|image|mimes:jpg,jpeg,png,svg|max:15360'
         ];
     }
 }

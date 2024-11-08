@@ -329,6 +329,7 @@ function addArticle() {
   ArticleService.newArticle(article.value).then(() => {
     document.getElementById('addArticleClose').click();
     api.info({ message: `Création de l'article réussite` });
+    
   }).catch(error => {
     if (error.response && error.response.data.errors) {
       errors.value = error.response.data.errors;
