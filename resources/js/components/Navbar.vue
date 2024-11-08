@@ -30,7 +30,7 @@
                 <router-link class="dropdown-item" to="/profil">Profil</router-link>
               </li>
 
-              <!-- Affiche le lien vers le profil si l'utilisateur a le role_id = 1 -->
+              <!-- Affiche le lien vers le profil si l'utilisateur a le role = admin -->
               <li v-if="userStore.user.role === 'admin'">
                 <router-link class="dropdown-item" to="/admin">Administration</router-link>
               </li>
@@ -94,7 +94,7 @@
             </div>
             <div class="mb-3">
               <label for="imageUpload" class="form-label">Télécharger une image</label>
-              <input class="form-control" type="file" id="imageUpload" />
+              <input class="form-control" type="file" id="imageUpload" @change="onPicture" />
             </div>
             <div class="modal-footer">
               <input type="submit" class="btn btn-primary" value="Publier" />
@@ -117,7 +117,7 @@
         </div>
         <div class="modal-body">
           <form @submit.prevent="authenticate">
-            {{  errorMessageConnexion }}
+            {{ errorMessageConnexion }}
             <div class="mb-3">
               <label for="emailLogin" class="form-label">Adresse email</label>
               <input type="email" class="form-control" id="emailLogin" v-model="login.email" />
@@ -283,7 +283,8 @@ let article = ref({
   address: '',
   content: '',
   price: '',
-  category_id: ''
+  category_id: '',
+  picture: ''
 });
 
 function changeModal() {
@@ -325,11 +326,10 @@ function logout() {
 
 // Fonction pour ajouter un article
 function addArticle() {
-  console.log('aaah');
+  console.log(article.value);
   ArticleService.newArticle(article.value).then(() => {
     document.getElementById('addArticleClose').click();
     api.info({ message: `Création de l'article réussite` });
-    
   }).catch(error => {
     if (error.response && error.response.data.errors) {
       errors.value = error.response.data.errors;
@@ -347,9 +347,33 @@ onMounted(async () => {
     console.error('Erreur lors du chargement des catégories:', error);
   }
 });
+
+// Ajouter une image
+function onPicture(event) {
+  const file = event.target.files[0];
+
+  if (!file) {
+    console.error('Aucun fichier sélectionné');
+    return;
+  }
+
+  if (!file.type.startsWith('image/')) {
+    alert('Veuillez télécharger un fichier image.');
+    return;
+  }
+
+  // Assigner le fichier directement à la propriété `picture`
+  article.value.picture = file;
+}
+
 </script>
 
 <style scoped>
+
+.navbar-nav .dropdown-menu {
+  position: absolute;
+}
+
 .navbar {
   background-color: #8B428F;
 }

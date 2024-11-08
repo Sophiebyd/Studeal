@@ -27,7 +27,7 @@ Route::apiResource("/users", UserController::class);
 Route::get('/latest', [ArticleController::class, 'latest']);
 
 // Route pour ajouter un article
-Route::post('/newArticle', [ArticleController::class, 'store']);
+Route::post('/newArticle', [ArticleController::class, 'store'])->middleware('auth:sanctum');
 
 // Route pour les catégories
 Route::get('/category_1', [ArticleController::class, 'articlesByCategory1']);
@@ -52,6 +52,7 @@ Route::middleware('web')->group(function () {
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
+
 
 // Mise à jour utilisateur
 route::patch('/users/{id}', [UserController::class, 'update'])->name('users.update');

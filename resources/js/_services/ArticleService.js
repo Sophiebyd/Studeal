@@ -1,4 +1,5 @@
 import Axios from './CallerService';
+import { useUserStore } from '@/stores/User';
 
 // Récupérer tous les articles
 export async function getArticles() {
@@ -37,7 +38,8 @@ export async function getCategory4() {
 
 // créer un article
 export const newArticle = async (data) => {
-    const res = await Axios.post('/newArticle', data,
+    const userStore = useUserStore();
+    const res = await Axios.post('/newArticle', {...data, user_id: userStore.user.id}, 
         {
             headers: {
                 'Content-Type': 'multipart/form-data'
