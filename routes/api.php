@@ -29,6 +29,11 @@ Route::get('/latest', [ArticleController::class, 'latest']);
 // Route pour ajouter un article
 Route::post('/newArticle', [ArticleController::class, 'store'])->middleware('auth:sanctum');
 
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/newArticle', [ArticleController::class, 'store']);
+    Route::patch('/newAvatar', [UserController::class, 'update']);
+});
+
 // Route pour les catégories
 Route::get('/category_1', [ArticleController::class, 'articlesByCategory1']);
 Route::get('/category_2', [ArticleController::class, 'articlesByCategory2']);

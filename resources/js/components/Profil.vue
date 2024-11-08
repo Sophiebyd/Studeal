@@ -3,7 +3,8 @@
         <img src="../../../public/img/default.jpg" class="rounded image" alt="picture">
         <div class="mb-3 row mt-3 mx-0">
             <div>
-                <button type="submit" class="btn btn-primary me-2">Modifier l'avatar</button>
+                <button type="click" class="btn btn-primary me-2" @click="profilPict">Modifier l'avatar</button>
+                <input class="form-control" type="file" id="avatar" @change="onProfil" style="display: none" />
             </div>
         </div>
     </div>
@@ -53,7 +54,7 @@
                 <div class="mb-3 row mt-5">
                     <div class="col-12 d-flex justify-content-center">
                         <button type="button" class="btn btn-primary me-2" data-bs-toggle="modal"
-                        data-bs-target="#confirmProfilModal">Modifier le profil</button>
+                            data-bs-target="#confirmProfilModal">Modifier le profil</button>
                         <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                             data-bs-target="#confirmDeleteModal">
                             Supprimer le compte
@@ -64,8 +65,8 @@
         </div>
     </div>
 
-        <!-- Modal pour la modification du compte -->
-        <div class="modal fade" id="confirmProfilModal" tabindex="-1" aria-labelledby="confirmProfilModalLabel"
+    <!-- Modal pour la modification du compte -->
+    <div class="modal fade" id="confirmProfilModal" tabindex="-1" aria-labelledby="confirmProfilModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -111,6 +112,7 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useUserStore } from '../stores/User';
 import * as AuthService from '../_services/AuthService';
+import * as UserService from '../_services/UserService';
 
 const userStore = useUserStore();
 const errors = ref({});
@@ -134,6 +136,32 @@ const confirmProfil = () => {
     }
 }
 
+// Ajouter une image
+function onProfil(event) {
+    const file = event.target.files[0];
+
+    if (!file) {
+        console.error('Aucun fichier sélectionné');
+        return;
+    }
+
+    if (!file.type.startsWith('image/')) {
+        alert('Veuillez télécharger un fichier image.');
+        return;
+    }
+
+    UserService.newAvatar({picture:file}).then(() => {
+        api.info({ message: `Changement d'avatar réussit` });
+    }).catch(error => {
+        if (error.response && error.response.data.errors) {
+            errors.value = error.response.data.errors;
+        }
+    });
+}
+
+function profilPict() {
+    document.getElementById('avatar').click();
+}
 
 </script>
 

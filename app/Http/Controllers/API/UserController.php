@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
@@ -64,13 +65,15 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request, User $user)
     {
         $user->update($request->except('picture'));
+        Log::info('test');
 
-        if ($request->file('picture')) {
+        if ($request->picture) {
+            Log::info('test 2');
             // Suppression de l'ancienne image si elle existe
             if ($user->picture && File::exists(public_path($user->picture))) {
                 File::delete(public_path($user->picture));
             }
-
+            
             // Enregistrement de la nouvelle image
             $fileName = time() . '_' . $request->picture->getClientOriginalName();
             $path = 'public/img/' . $fileName;
