@@ -30,6 +30,11 @@
                 <router-link class="dropdown-item" to="/profil">Profil</router-link>
               </li>
 
+              <!-- Affiche le lien vers le profil si l'utilisateur a le role_id = 1 -->
+              <li v-if="userStore.user.role === 'admin'">
+                <router-link class="dropdown-item" to="/admin">Administration</router-link>
+              </li>
+
               <li><router-link class="dropdown-item" to="/colocation">Colocation</router-link></li>
               <li><router-link class="dropdown-item" to="/covoiturage">Covoiturage</router-link></li>
               <li><router-link class="dropdown-item" to="/vente-meubles">Ventes de meubles</router-link></li>
@@ -46,53 +51,56 @@
     </div>
   </nav>
 
-  <!-- Modal pour Ajouter une annonce -->
-  <div class="modal fade" id="addAnnouncementModal" tabindex="-1" aria-labelledby="addAnnouncementLabel"
+  <!-- Modal pour ajouter une annonce -->
+  <div class="modal fade" id="addAnnouncementModal" tabindex="-1" aria-labelledby="addAnnouncementBannerLabel"
     aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="addAnnouncementLabel">Ajouter une annonce</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            id="addArticleClose"></button>
         </div>
         <div class="modal-body">
-          <form>
-            <!-- Champs du formulaire pour l'annonce -->
+          <form @submit.prevent="addArticle">
             <div class="mb-3">
               <label for="title" class="form-label">Titre</label>
-              <input type="text" class="form-control" id="title" />
+              <input type="text" class="form-control" id="title" v-model="article.title" />
+              <FormError :messages="errors?.title" />
             </div>
             <div class="mb-3">
               <label for="category" class="form-label">Catégorie</label>
-              <!-- Menu déroulant pour les catégories -->
-              <select class="form-select" id="category">
-                <option value="colocation">Colocation</option>
-                <option value="covoiturage">Covoiturage</option>
-                <option value="vente_meubles">Vente de meubles</option>
-                <option value="soutien_scolaire">Soutien Scolaire</option>
+              <select v-model="article.category_id" class="form-select" id="category" required>
+                <option v-for="category in categories" :key="category.id" :value="category.id">
+                  {{ category.name }}
+                </option>
               </select>
+              <FormError :messages="errors?.category_id" />
             </div>
             <div class="mb-3">
               <label for="address" class="form-label">Lieu</label>
-              <input type="text" class="form-control" id="address" />
+              <input type="text" class="form-control" id="address" v-model="article.address" />
+              <FormError :messages="errors?.address" />
             </div>
             <div class="mb-3">
-              <label for="price" class="form-label">Prix (€)</label>
-              <input type="text" class="form-control" id="price" />
+              <label for="price" class="form-label">Prix</label>
+              <input type="text" class="form-control" id="price" v-model="article.price" />
+              <FormError :messages="errors?.price" />
             </div>
             <div class="mb-3">
               <label for="message" class="form-label">Message</label>
-              <textarea class="form-control" id="message" rows="3"></textarea>
+              <textarea class="form-control" id="message" rows="3" v-model="article.content"></textarea>
+              <FormError :messages="errors?.content" />
             </div>
             <div class="mb-3">
               <label for="imageUpload" class="form-label">Télécharger une image</label>
               <input class="form-control" type="file" id="imageUpload" />
             </div>
+            <div class="modal-footer">
+              <input type="submit" class="btn btn-primary" value="Publier" />
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
+            </div>
           </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary">Envoyer</button>
-          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
         </div>
       </div>
     </div>
@@ -109,6 +117,7 @@
         </div>
         <div class="modal-body">
           <form @submit.prevent="authenticate">
+            {{  errorMessageConnexion }}
             <div class="mb-3">
               <label for="emailLogin" class="form-label">Adresse email</label>
               <input type="email" class="form-control" id="emailLogin" v-model="login.email" />
@@ -251,8 +260,10 @@
 
 <script setup>
 import { notification } from 'ant-design-vue';
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import * as AuthService from '../_services/AuthService';
+import * as CategoryService from '../_services/CategoryService';
+import * as ArticleService from '../_services/ArticleService';
 import FormError from './FormError.vue';
 import { useUserStore } from '@/stores/User';
 import { useRouter } from 'vue-router';
@@ -264,6 +275,16 @@ const router = useRouter();
 let subscribe = ref({});
 let login = ref({});
 let errors = ref({});
+const categories = ref([]);
+const errorMessageConnexion = ref('');
+
+let article = ref({
+  title: '',
+  address: '',
+  content: '',
+  price: '',
+  category_id: ''
+});
 
 function changeModal() {
   errors.value = {};
@@ -286,8 +307,11 @@ function authenticate() {
     document.getElementById('loginModalClose').click();
     api.info({ message: `Connexion réussie` });
   }).catch(error => {
-    if (error.response && error.response.data.errors) {
+    if (error.status == 422 && error.response && error.response.data.errors) {
       errors.value = error.response.data.errors;
+    }
+    if (error.status == 401) {
+      errorMessageConnexion.value = error.response.data.errors;
     }
   });
 }
@@ -297,6 +321,31 @@ function logout() {
   api.info({ message: `Déconnexion réussie` });
   router.push('/');
 }
+
+
+// Fonction pour ajouter un article
+function addArticle() {
+  console.log('aaah');
+  ArticleService.newArticle(article.value).then(() => {
+    document.getElementById('addArticleClose').click();
+    api.info({ message: `Création de l'article réussite` });
+  }).catch(error => {
+    if (error.response && error.response.data.errors) {
+      errors.value = error.response.data.errors;
+    }
+  });
+}
+
+// Fonction pour récupérer et afficher les catégories
+onMounted(async () => {
+  try {
+    const response = await CategoryService.getCategories();
+    categories.value = response.categories;
+    console.log(categories.value);
+  } catch (error) {
+    console.error('Erreur lors du chargement des catégories:', error);
+  }
+});
 </script>
 
 <style scoped>

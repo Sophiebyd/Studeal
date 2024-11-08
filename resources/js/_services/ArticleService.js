@@ -36,7 +36,14 @@ export async function getCategory4() {
 }
 
 // créer un article
-export const newArticle = async () => {
-    const res = await Axios.store('/newArticle', data);
+export const newArticle = async (data) => {
+    const res = await Axios.post('/newArticle', data,
+        {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        }
+    )
+
     return res.data;
 }

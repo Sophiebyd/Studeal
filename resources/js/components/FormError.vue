@@ -1,7 +1,5 @@
 <script setup>
 const props = defineProps(['messages'])
-
-console.log(props.messages);
 </script>
 
 <template>

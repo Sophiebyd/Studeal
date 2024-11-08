@@ -38,6 +38,8 @@ Route::get('/category_4', [ArticleController::class, 'articlesByCategory4']);
 // Récupérer les catégories
 Route::get('/article_categories', [CategoryController::class, 'index']);
 
+// Récupérer l'utilisateur role_id utilisateur
+Route::get('/users', [UserController::class, 'index']);
 
 // Authentification
 Route::middleware('web')->group(function () {

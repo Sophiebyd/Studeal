@@ -25,7 +25,7 @@ return new class extends Migration
             $table->boolean('banned')->default(false);
             $table->string('remember_token')->nullable();
 
-            $table->foreignId('role_id')->default(3)->constrained();
+            $table->foreignId('role_id')->default(2)->constrained();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

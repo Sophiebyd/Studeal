@@ -18,6 +18,7 @@ export const useUserStore = defineStore('user', () => {
   user.value.last_name = localStorage.getItem('last_name');
   user.value.birthday = localStorage.getItem('birthday');
   user.value.phone = localStorage.getItem('phone');
+  user.value.role = localStorage.getItem('role');
 
   const isLogged = computed(() => {
     return !!user.value.email;

@@ -9,9 +9,9 @@ export async function register(data) {
 
 // requête connexion
 export async function authenticate(data) {
-    // await Axios.get('/sanctum/csrf-cookie', {
-    //     baseURL: 'http://localhost:8000/'
-    // });
+    await Axios.get('/sanctum/csrf-cookie', {
+        baseURL: 'http://localhost:8000/'
+    });
 
     const res = await Axios.post('/login', data);
 
@@ -25,8 +25,9 @@ export async function authenticate(data) {
         birthday: res.data.birthday,
         phone: res.data.phone
     });
-
     return res.data;
+
+    
 }
 
 // requête modification du profil

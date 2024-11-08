@@ -32,7 +32,7 @@ class LoginController extends Controller
             return response()->json($authUser);
         } else {
             // si échec de la connexion, on renvoie un message d'erreur
-            return response()->json(['Echec de la connexion.', 'errors' => 'L\'utilisateur n\'existe pas ou le mot de passe est incorrect']);
+            return response()->json(['errors' => 'L\'utilisateur n\'existe pas ou le mot de passe est incorrect'], 401);
         }
     }
 
