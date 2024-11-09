@@ -16,7 +16,7 @@
         "APP_NAME": "Studeal",
         "APP_ENV": "production",
         "APP_KEY": "base64:nTR8uy6Op/zk/QFimvX/ESqqsSn4hcjA73EJIJ7mMTM=",
-        "APP_DEBUG": true,
+        "APP_DEBUG": "true",
         "APP_TIMEZONE": "UTC",
         "APP_URL": "http://Studeal.fr",
         "APP_LOCALE": "fr",
