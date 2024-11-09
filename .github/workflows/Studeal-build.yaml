@@ -1,0 +1,166 @@
+# To better understand this file read this:
+# https://docs.ionos.space/docs/github-actions-customization/
+
+name: "Deploy Now: Execute Build"
+
+on:
+  workflow_call:
+    inputs:
+      site-url:
+        required: true
+        type: string
+      branch-id:
+        required: true
+        type: string
+
+env:
+  DEPLOYMENT_FOLDER: ./
+
+jobs:
+# Please do not rename this job
+  build-project:
+    name: build Studeal
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      # if you add permissions here this needs to be done in the Studeal-orchestration.yaml as well
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
+
+      - name: Setup composer
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: composer:2
+
+      - name: Run composer install
+        env:
+          APP_DEBUG: true
+          APP_ENV: local
+          APP_FAKER_LOCALE: fr_FR
+          APP_FALLBACK_LOCALE: en
+          APP_KEY: base64:nTR8uy6Op/zk/QFimvX/ESqqsSn4hcjA73EJIJ7mMTM=
+          APP_LOCALE: fr
+          APP_MAINTENANCE_DRIVER: file
+          APP_MAINTENANCE_STORE: database
+          APP_NAME: Studeal
+          APP_TIMEZONE: UTC
+          APP_URL: ttp://localhost
+          AWS_DEFAULT_REGION: us-east-1
+          AWS_USE_PATH_STYLE_ENDPOINT: false
+          BCRYPT_ROUNDS: 12
+          BROADCAST_CONNECTION: log
+          CACHE_STORE: database
+          DB_CONNECTION: mysql
+          DB_DATABASE: studeal
+          DB_HOST: 127.0.0.1
+          DB_PORT: 3306
+          DB_USERNAME: root
+          FILESYSTEM_DISK: local
+          LOG_CHANNEL: stack
+          LOG_DEPRECATIONS_CHANNEL: null
+          LOG_LEVEL: debug
+          LOG_STACK: single
+          MAIL_ENCRYPTION: null
+          MAIL_FROM_ADDRESS"hello@example.com": "hello@example.com"
+          MAIL_FROM_NAME: "${APP_NAME}"
+          MAIL_HOST: 27.0.0.1
+          MAIL_MAILER: log
+          MAIL_PASSWORD: null
+          MAIL_PORT: 2525
+          MAIL_USERNAME: null
+          MEMCACHED_HOST: 127.0.0.1
+          QUEUE_CONNECTION: database
+          REDIS_CLIENT: phpredis
+          REDIS_HOST: 127.0.0.
+          REDIS_PASSWORD: null
+          REDIS_PORT: 6379
+          SANCTUM_STATEFUL_DOMAINS: localhost:8000
+          SESSION_DOMAIN: localhost
+          SESSION_DRIVE: database
+          SESSION_ENCRYPT: false
+          SESSION_LIFETIME: 120
+          SESSION_PATH: /
+          VITE_APP_NAME: "${APP_NAME}"
+        run: composer install --optimize-autoloader --no-dev
+
+      - name: Build PHP assets
+        env:
+          APP_DEBUG: true
+          APP_ENV: local
+          APP_FAKER_LOCALE: fr_FR
+          APP_FALLBACK_LOCALE: en
+          APP_KEY: base64:nTR8uy6Op/zk/QFimvX/ESqqsSn4hcjA73EJIJ7mMTM=
+          APP_LOCALE: fr
+          APP_MAINTENANCE_DRIVER: file
+          APP_MAINTENANCE_STORE: database
+          APP_NAME: Studeal
+          APP_TIMEZONE: UTC
+          APP_URL: ttp://localhost
+          AWS_DEFAULT_REGION: us-east-1
+          AWS_USE_PATH_STYLE_ENDPOINT: false
+          BCRYPT_ROUNDS: 12
+          BROADCAST_CONNECTION: log
+          CACHE_STORE: database
+          DB_CONNECTION: mysql
+          DB_DATABASE: studeal
+          DB_HOST: 127.0.0.1
+          DB_PORT: 3306
+          DB_USERNAME: root
+          FILESYSTEM_DISK: local
+          LOG_CHANNEL: stack
+          LOG_DEPRECATIONS_CHANNEL: null
+          LOG_LEVEL: debug
+          LOG_STACK: single
+          MAIL_ENCRYPTION: null
+          MAIL_FROM_ADDRESS"hello@example.com": "hello@example.com"
+          MAIL_FROM_NAME: "${APP_NAME}"
+          MAIL_HOST: 27.0.0.1
+          MAIL_MAILER: log
+          MAIL_PASSWORD: null
+          MAIL_PORT: 2525
+          MAIL_USERNAME: null
+          MEMCACHED_HOST: 127.0.0.1
+          QUEUE_CONNECTION: database
+          REDIS_CLIENT: phpredis
+          REDIS_HOST: 127.0.0.
+          REDIS_PASSWORD: null
+          REDIS_PORT: 6379
+          SANCTUM_STATEFUL_DOMAINS: localhost:8000
+          SESSION_DOMAIN: localhost
+          SESSION_DRIVE: database
+          SESSION_ENCRYPT: false
+          SESSION_LIFETIME: 120
+          SESSION_PATH: /
+          VITE_APP_NAME: "${APP_NAME}"
+        run: php artisan key:generate --force -n
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: v22.x
+
+      - name: Build Node assets
+        env:
+          CI: true
+          SITE_URL: ${{ inputs.site-url }}
+        run: |
+          npm ci
+          npm run build
+
+# Please do not touch the following action
+      - name: Store deployment content
+        uses: ionos-deploy-now/artifact-action@v1
+        with:
+          api-key: ${{ secrets.IONOS_API_KEY }}
+          service-host: api-eu.ionos.space
+          project-id: ce878385-624f-4eba-9fd6-858b0bb35a0b
+          branch-id: ${{ inputs.branch-id }}
+          version: ${{ github.sha }}
+          folder: ${{ env.DEPLOYMENT_FOLDER }}
+          config-file: .deploy-now/Studeal/config.yaml
+          action: upload
