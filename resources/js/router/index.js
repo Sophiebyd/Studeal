@@ -10,6 +10,7 @@ import Profil from '../components/Profil.vue'
 import Contact from '../components/Contact.vue'
 import Condition from '../components/Condition.vue'
 import Admin from '../components/Admin.vue'
+import Article from '../components/Article.vue'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -23,6 +24,7 @@ const router = createRouter({
         { path: '/contact', name: 'Contact', component: Contact },
         { path: '/condition', name: 'Condition', component: Condition },
         { path: '/admin', name: 'Admin', component: Admin },
+        { path: '/article/:id', name: 'Article', component: Article },
     ]
 });
 

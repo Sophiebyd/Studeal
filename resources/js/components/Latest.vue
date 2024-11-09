@@ -5,13 +5,15 @@
             <div class="row justify-content-center">
                 <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 d-flex flex-column align-items-center"
                     v-for="ad in latestArticles" :key="ad.id">
-                    <div class="card mb-4" style="width: 85%;">
-                        <img :src="ad.image" class="card-img-top" :alt="ad.title">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">{{ ad.title }}</h5>
-                            <p class="card-text">{{ ad.price }} €</p>
+                    <router-link :to="`/article/${ad.id}`" class="mb-4" style="width: 85%;">
+                        <div class="card">
+                            <img :src="ad.image" class="card-img-top" :alt="ad.title">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">{{ ad.title }}</h5>
+                                <p class="card-text">{{ ad.price }} €</p>
+                            </div>
                         </div>
-                    </div>
+                    </router-link>
                 </div>
             </div>
         </div>
@@ -116,7 +118,7 @@ h2 {
     }
 
     .card-img-top {
-        height: 90px; 
+        height: 90px;
     }
 
     .card-title {

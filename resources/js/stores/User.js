@@ -5,7 +5,7 @@ export const useUserStore = defineStore('user', () => {
   const user = ref({
     id: -1,
     email: '',
-    role: '', 
+    role: '',
     first_name: '',
     last_name: '',
     birthday: '',
@@ -29,10 +29,10 @@ export const useUserStore = defineStore('user', () => {
     user.value.id = data.id;
     user.value.email = data.email;
     user.value.role = data.role;
-    user.value.first_name= data.first_name;
-    user.value.last_name= data.last_name;
-    user.value.birthday= data.birthday;
-    user.value.phone= data.phone;
+    user.value.first_name = data.first_name;
+    user.value.last_name = data.last_name;
+    user.value.birthday = data.birthday;
+    user.value.phone = data.phone;
     localStorage.setItem('id', String(data.id));
     localStorage.setItem('email', data.email ?? '');
     localStorage.setItem('role', data.role ?? '');
@@ -52,7 +52,7 @@ export const useUserStore = defineStore('user', () => {
       birthday: '',
       phone: '',
     });
-    
+
     // localStorage.removeItem('id');
     // localStorage.removeItem('email');
     // localStorage.removeItem('first_name');

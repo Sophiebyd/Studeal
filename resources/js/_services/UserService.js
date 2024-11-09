@@ -10,7 +10,7 @@ export async function getUsers(data) {
 // requête pour mettre à jour l'image
 export const newAvatar = async (data) => {
     const userStore = useUserStore();
-    const res = await Axios.patch('/newAvatar', {...data, user_id: userStore.user.id}, 
+    const res = await Axios.put('/newAvatar', {...data, user_id: userStore.user.id}, 
         {
             headers: {
                 'Content-Type': 'multipart/form-data'

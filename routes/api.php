@@ -31,7 +31,7 @@ Route::post('/newArticle', [ArticleController::class, 'store'])->middleware('aut
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/newArticle', [ArticleController::class, 'store']);
-    Route::patch('/newAvatar', [UserController::class, 'update']);
+    Route::put('/newAvatar', [UserController::class, 'update']);
 });
 
 // Route pour les catégories
