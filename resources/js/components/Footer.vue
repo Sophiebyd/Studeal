@@ -2,7 +2,7 @@
     <footer class="footer">
         <div class="footer-container">
             <router-link to="/" class="footer-logo">
-                <img src="../../../public/img/logo.png" alt="Logo" class="logo-img" />
+                <img src="../../../public/img/Logo.png" alt="Logo" class="logo-img" />
             </router-link>
 
             <div class="footer-links">
