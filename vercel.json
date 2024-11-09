@@ -18,7 +18,7 @@
         "APP_KEY": "base64:nTR8uy6Op/zk/QFimvX/ESqqsSn4hcjA73EJIJ7mMTM=",
         "APP_DEBUG": "true",
         "APP_TIMEZONE": "UTC",
-        "APP_URL": "http://Studeal.fr",
+        "APP_URL": "http://studeal.vercel.app",
         "APP_LOCALE": "fr",
         "APP_FALLBACK_LOCALE": "en",
         "APP_FAKER_LOCALE": "fr_FR",
