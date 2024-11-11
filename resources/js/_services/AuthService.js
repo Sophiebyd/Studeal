@@ -10,7 +10,7 @@ export async function register(data) {
 // requête connexion
 export async function authenticate(data) {
     await Axios.get('/sanctum/csrf-cookie', {
-        baseURL: 'http://localhost:8000/'
+        baseURL: '/'
     });
 
     const res = await Axios.post('/login', data);
@@ -34,7 +34,7 @@ export async function authenticate(data) {
 export const modification = async () => {
     const userStore = useUserStore();
     await Axios.get('/sanctum/csrf-cookie', {
-        baseURL: 'http://localhost:8000/'
+        baseURL: '/'
     });
     await Axios.put('/users/' + userStore.user.id, {
         first_name: userStore.user.first_name,

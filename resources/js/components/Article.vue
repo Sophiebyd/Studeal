@@ -25,8 +25,8 @@ const route = useRoute();
 onMounted(async () => {
     const articleId = route.params.id;
     try {
-        const response = await ArticleService.getArticles(articleId);
-        article.value = response.article;
+        const response = await ArticleService.getArticleById(articleId);
+        article.value = response;
     } catch (error) {
         console.error('Erreur lors de la récupération de l\'article:', error);
     }

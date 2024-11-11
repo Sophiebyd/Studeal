@@ -118,22 +118,24 @@ const userStore = useUserStore();
 const errors = ref({});
 const router = useRouter();
 
-const confirmDelete = () => {
+const confirmDelete = async () => {
     try {
-        AuthService.deleteProfil()
+        await AuthService.deleteProfil()
         router.push('/');
     } catch (error) {
         console.error("Erreur lors de la suppression du compte", error);
+        errors.value = error.response.data.errors
     }
 }
 
-const confirmProfil = () => {
+const confirmProfil = async () => {
     try {
-        AuthService.modification()
+        await AuthService.modification()
         document.getElementById('closeProfilModal').click();
         
     } catch (error) {
         console.error("Erreur lors de la modification du compte", error)
+        errors.value = error.response.data.errors
     }
 }
 

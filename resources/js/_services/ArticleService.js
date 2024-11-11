@@ -5,6 +5,14 @@ import { useUserStore } from '@/stores/User';
 export async function getArticles() {
     const res = await Axios.get('/articles');
     return res.data.article;
+
+}
+// Récupérer tous les articles_id
+export async function getArticleById(articleId) {
+    const res = await Axios.get(`/articles/${articleId}`);
+    console.log(res.data.article);
+    return res.data.article;
+    
 }
 
 // Récupérer les 10 derniers articles
