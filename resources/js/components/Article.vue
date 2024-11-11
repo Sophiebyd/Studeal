@@ -1,15 +1,20 @@
 <template>
     <div class="article-container">
-        <h1 class="article-title">{{ article.title }}</h1>
-        <div class="article-image">
-            <img :src="article.picture" alt="Image de l'article" />
-        </div>
-        <div class="article-details">
-            <p class="article-description">{{ article.content }}</p>
-            <div class="article-info">
-                <p><strong>Adresse :</strong> {{ article.address }}</p>
-                <p><strong>Prix :</strong> {{ article.price }} €</p>
+        <template v-if="article.id">
+            <h1 class="article-title">{{ article.title }}</h1>
+            <div class="article-image">
+                <img :src="`/api/pictures/${article.pictures[0].id}`" :alt="article.title" />
             </div>
+            <div class="article-details">
+                <p class="article-description"><strong>Description :</strong>{{ article.content }}</p>
+                <div class="article-info">
+                    <p><strong>Adresse :</strong> {{ article.address }}</p>
+                    <p><strong>Prix :</strong> {{ article.price }} €</p>
+                </div>
+            </div>
+        </template>
+        <div v-else class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
         </div>
     </div>
 </template>
@@ -74,5 +79,15 @@ onMounted(async () => {
 
 .article-info strong {
     color: #8B428F;
+}
+
+.article-description strong {
+    color: #8B428F;
+}
+
+
+img {
+    max-height: 250px;
+    max-width: 250px;
 }
 </style>

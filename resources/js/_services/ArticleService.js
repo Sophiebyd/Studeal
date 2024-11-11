@@ -47,13 +47,18 @@ export async function getCategory4() {
 // créer un article
 export const newArticle = async (data) => {
     const userStore = useUserStore();
-    const res = await Axios.post('/newArticle', {...data, user_id: userStore.user.id}, 
-        {
+    try {
+        // Envoyer la requête avec le cookie CSRF et les credentials
+        const res = await Axios.post('/newArticle', { ...data, user_id: userStore.user.id }, {
             headers: {
-                'Content-Type': 'multipart/form-data'
+                'Content-Type': 'multipart/form-data',
+                'Accept': 'application/json'
             }
-        }
-    )
+        });
 
-    return res.data;
+        return res.data;
+    } catch (error) {
+        console.error('Erreur lors de la création de l\'article:', error);
+        throw error;
+    }
 }

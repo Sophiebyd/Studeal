@@ -8,7 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Article extends Model
 {
     use HasFactory;
-
+    protected $with = [
+        'pictures'
+    ];
+    
     protected $fillable = [
         'title',
         'address',
@@ -24,7 +27,7 @@ class Article extends Model
         return $this->hasMany(User::class);
     }
 
-    public function picture()
+    public function pictures()
     {
         return $this->hasMany(Picture::class);
     }

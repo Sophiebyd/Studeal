@@ -84,7 +84,7 @@
             </div>
             <div class="mb-3">
               <label for="price" class="form-label">Prix</label>
-              <input type="text" class="form-control" id="price" v-model="article.price" />
+              <input type="number" class="form-control" id="price" v-model="article.price" min="0" max="250"/>
               <FormError :messages="errors?.price" />
             </div>
             <div class="mb-3">

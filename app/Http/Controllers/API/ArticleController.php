@@ -85,7 +85,7 @@ class ArticleController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(StoreArticleRequest $request)
-    {
+    {        
         $article = Article::create([
             'title' => $request->title,
             'address' => $request->address,
@@ -95,19 +95,18 @@ class ArticleController extends Controller
             'user_id' => auth()->user()->id,
         ]);
 
-        // si image présente alors enregistrement de l'image sur le disque et du chemin le champs avatar:
+        // Si une image est présente, enregistrement sur le disque et dans la table pictures
         if ($request->file('picture')) {
             $fileName = time() . '_' . $request->picture->getClientOriginalName();
-            $path = 'public/img/' . $fileName;
-            $picture = $path;
-            $request->picture->move(public_path('public/img'), $path);
-        }
 
-        return response()->json([
-            'message' => 'Article ajouté avec succès',
-            'status' => true,
-            'article' => $article,
-        ], 201);
+            // Déplacement de l'image vers le dossier public/img
+            $request->picture->move(public_path('img'), $fileName);
+
+            // Enregistrement de l'image dans la table pictures
+            $article->pictures()->create([
+                'name' => $fileName,
+            ]);
+        }
     }
 
     /**

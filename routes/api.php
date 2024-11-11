@@ -12,6 +12,7 @@ use App\Http\Controllers\API\PaymentController;
 use App\Http\Controllers\API\PictureController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\LoginController;
+use App\Models\Picture;
 
 // Ressources API
 Route::apiResource("/articles", ArticleController::class);
@@ -20,11 +21,13 @@ Route::apiResource("/commands", CommandController::class);
 Route::apiResource("/messages", MessageController::class);
 Route::apiResource("/notifications", NotificationController::class);
 Route::apiResource("/payments", PaymentController::class);
-Route::apiResource("/pictures", PictureController::class);
+// Route::apiResource("/pictures", PictureController::class);
 Route::apiResource("/users", UserController::class);
 
 // Route pour obtenir les 10 derniers articles
 Route::get('/latest', [ArticleController::class, 'latest']);
+
+Route::get('/pictures/{id}', [PictureController::class, 'picture']);
 
 // Route pour ajouter un article
 Route::post('/newArticle', [ArticleController::class, 'store'])->middleware('auth:sanctum');

@@ -12,7 +12,7 @@ class Picture extends Model
     protected $fillable = [
         'name',
         'article_id',
-        'category_id'
+        'category_id',
     ];
 
     public function article()
@@ -23,5 +23,11 @@ class Picture extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function getPath()
+    {
+        return public_path('img') . '\\' . $this->name;
+        
     }
 }
