@@ -6,6 +6,7 @@
 </template>
 
 <script setup>
+import { onMounted } from 'vue';
 import Banner from './Banner.vue';
 import Categories from './Categories.vue';
 import Latest from './Latest.vue';
