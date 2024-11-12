@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
@@ -19,8 +20,12 @@ class UserController extends Controller
     }
 
     // Fonction pour renvoyer la liste des utilisateurs
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->user()->cannot('viewAny', User::class)) {
+            abort('401');
+        }
+
         // On récupère tous les utilisateurs
         $users = User::all();
 
@@ -35,6 +40,10 @@ class UserController extends Controller
     // Fonction pour sauvegarder un nouvel utilisateur
     public function store(StoreUserRequest $request)
     {
+        if ($request->user()->cannot('create', User::class)) {
+            abort('401');
+        }
+
         $user = User::create([
             'last_name' => $request->last_name,
             'first_name' => $request->first_name,
@@ -52,8 +61,12 @@ class UserController extends Controller
     }
 
     // Fonction pour récupérer les infos d'un utilisateur spécifique
-    public function show(User $user)
+    public function show(Request $request, User $user)
     {
+        if ($request->user()->cannot('view', User::class)) {
+            abort('401');
+        }
+
         return response()->json([
             'message' => 'Utilisateur trouvé',
             'status' => true,
@@ -64,6 +77,11 @@ class UserController extends Controller
     // Fonction pour mettre à jour les informations d'un utilisateur
     public function update(UpdateUserRequest $request, User $user)
     {
+        if ($request->user()->cannot('update', User::class)) {
+            abort('401');
+        }
+
+        $user->load('role');
         $user->update($request->except('picture'));
         Log::info('test');
 
@@ -90,8 +108,12 @@ class UserController extends Controller
     }
 
     // Fonction pour supprimer un utilisateur
-    public function destroy(User $user)
+    public function destroy(Request $request, User $user)
     {
+        if ($request->user()->cannot('delete', User::class)) {
+            abort('401');
+        }
+
         $user->delete();
         return response()->json([
             'status' => true,

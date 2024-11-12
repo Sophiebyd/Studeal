@@ -80,9 +80,7 @@
                 <tbody>
                     <tr v-for="(user, index) in filteredUsers" :key="index">
                         <td>
-                            <router-link :to="`/profil/${user.id}`" class="text-decoration-none">
-                                {{ user.first_name }} {{ user.last_name }}
-                            </router-link>
+                            {{ user.first_name }} {{ user.last_name }}
                         </td>
                         <td>{{ user.email }}</td>
                         <td>{{ user.phone }}</td>

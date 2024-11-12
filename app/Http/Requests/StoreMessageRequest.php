@@ -23,14 +23,17 @@ class StoreMessageRequest extends FormRequest
     {
         return [
             'content' => 'required|string|min:2|max:5000',
-            'user2_id' => 'required|integer|different:user1_id',
         ];
     }
-
+    
     public function messages()
     {
         return [
-            ///
+            'content.required' => 'Le contenu est requis.',
+            'content.string' => 'Le contenu doit être une chaîne de caractères.',
+            'content.min' => 'Le contenu doit faire au moins 2 caractères.',
+            'content.max' => 'Le contenu ne doit pas dépasser 5000 caractères.',
         ];
     }
+    
 }

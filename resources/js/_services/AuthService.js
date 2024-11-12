@@ -19,7 +19,7 @@ export async function authenticate(data) {
     userStore.setUser({
         id: res.data.id,
         email: res.data.email,
-        role: res.data.role.role,
+        role: res.data.role,
         first_name: res.data.first_name,
         last_name: res.data.last_name,
         birthday: res.data.birthday,

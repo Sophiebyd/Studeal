@@ -22,7 +22,7 @@ class StoreNotificationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|String|min:2|max:50',
+            'title' => 'required|string|min:2|max:50',
             'content' => 'required|string|min:2|max:100',
         ];
     }
@@ -30,7 +30,15 @@ class StoreNotificationRequest extends FormRequest
     public function messages()
     {
         return [
-            ///
+            'title.required' => 'Le titre est requis.',
+            'title.string' => 'Le titre doit être une chaîne de caractères.',
+            'title.min' => 'Le titre doit faire au moins 2 caractères.',
+            'title.max' => 'Le titre ne doit pas dépasser 50 caractères.',
+
+            'content.required' => 'Le contenu est requis.',
+            'content.string' => 'Le contenu doit être une chaîne de caractères.',
+            'content.min' => 'Le contenu doit faire au moins 2 caractères.',
+            'content.max' => 'Le contenu ne doit pas dépasser 100 caractères.',
         ];
-    }    
+    }
 }

@@ -29,7 +29,10 @@ class StorePaymentRequest extends FormRequest
     public function messages()
     {
         return [
-            ///
+            'name.required' => 'Le nom est requis.',
+            'name.string' => 'Le nom doit être une chaîne de caractères.',
+            'name.min' => 'Le nom doit faire au moins 2 caractères.',
+            'name.max' => 'Le nom ne doit pas dépasser 250 caractères.',
         ];
     }
 };

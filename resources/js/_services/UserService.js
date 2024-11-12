@@ -14,6 +14,23 @@ export async function getUserById(userId) {
     return res.data.user;
 }
 
+export async function update(user) {
+    const userStore = useUserStore();
+    await Axios.get('/sanctum/csrf-cookie', {
+        baseURL: '/'
+    });
+    await Axios.put('/users/' + user.id, {
+        first_name: user.first_name,
+        last_name: user.last_name,
+        email: user.email,
+        birthday: user.birthday,
+        phone: user.phone
+    })
+        .catch(error => {
+            console.error(error);
+        })
+}
+
 // requête pour mettre à jour l'image
 export const newAvatar = async (data) => {
     const userStore = useUserStore();

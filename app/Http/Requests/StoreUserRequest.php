@@ -43,7 +43,35 @@ class StoreUserRequest extends FormRequest
     public function messages()
     {
         return [
-            ///
+            'picture.image' => 'Le fichier doit être une image.',
+            'picture.mimes' => 'L\'image doit être au format jpg, jpeg, png ou svg.',
+            'picture.max' => 'L\'image ne doit pas dépasser 15 Mo.',
+    
+            'last_name.required' => 'Le nom est requis.',
+            'last_name.string' => 'Le nom doit être une chaîne de caractères.',
+            'last_name.min' => 'Le nom doit faire au moins 2 caractères.',
+            'last_name.max' => 'Le nom ne doit pas dépasser 30 caractères.',
+    
+            'first_name.required' => 'Le prénom est requis.',
+            'first_name.string' => 'Le prénom doit être une chaîne de caractères.',
+            'first_name.min' => 'Le prénom doit faire au moins 2 caractères.',
+            'first_name.max' => 'Le prénom ne doit pas dépasser 30 caractères.',
+    
+            'birthday.required' => 'La date de naissance est requise.',
+            'birthday.date' => 'La date de naissance doit être une date valide.',
+    
+            'phone.required' => 'Le numéro de téléphone est requis.',
+            'phone.digits' => 'Le numéro de téléphone doit comporter 10 chiffres.',
+    
+            'email.required' => 'L\'adresse e-mail est requise.',
+            'email.unique' => 'Cette adresse e-mail est déjà utilisée.',
+            'email.string' => 'L\'adresse e-mail doit être une chaîne de caractères.',
+            'email.max' => 'L\'adresse e-mail ne doit pas dépasser 50 caractères.',
+    
+            'password.required' => 'Le mot de passe est requis.',
+            'password.confirmed' => 'Le mot de passe de confirmation ne correspond pas.',
+            'password.min' => 'Le mot de passe doit contenir au moins 8 caractères.',
         ];
     }
+    
 }

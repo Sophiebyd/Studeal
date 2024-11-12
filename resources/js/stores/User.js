@@ -28,14 +28,14 @@ export const useUserStore = defineStore('user', () => {
   function setUser(data) {
     user.value.id = data.id;
     user.value.email = data.email;
-    user.value.role = data.role;
+    user.value.role = data.role ? data.role.role : '';
     user.value.first_name = data.first_name;
     user.value.last_name = data.last_name;
     user.value.birthday = data.birthday;
     user.value.phone = data.phone;
     localStorage.setItem('id', String(data.id));
     localStorage.setItem('email', data.email ?? '');
-    localStorage.setItem('role', data.role ?? '');
+    localStorage.setItem('role', user.value.role);
     localStorage.setItem('first_name', data.first_name ?? '');
     localStorage.setItem('last_name', data.last_name ?? '');
     localStorage.setItem('birthday', data.birthday ?? '');

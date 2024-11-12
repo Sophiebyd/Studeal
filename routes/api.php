@@ -31,9 +31,6 @@ Route::get('/latest', [ArticleController::class, 'latest']);
 
 Route::get('/pictures/{id}', [PictureController::class, 'picture']);
 
-// Route pour supprimer un article (policies)
-Route::post('/newArticle', [ArticleController::class, 'store'])->middleware('auth:sanctum');
-
 // policies
 Route::middleware('auth:sanctum')->group(function () { 
     Route::post('/newArticle', [ArticleController::class, 'store']); 

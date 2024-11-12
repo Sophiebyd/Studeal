@@ -21,7 +21,6 @@ const router = createRouter({
         { path: '/vente-meubles', name: 'VenteDeMeubles', component: VenteDeMeubles},
         { path: '/soutien-scolaire', name: 'SoutienScolaire', component: SoutienScolaire },
         { path: '/profil', name: 'Profil', component: Profil },
-        { path: '/profil/:id', name: 'Profil', component: Profil, props: true },
         { path: '/contact', name: 'Contact', component: Contact },
         { path: '/condition', name: 'Condition', component: Condition },
         { path: '/admin', name: 'Admin', component: Admin },

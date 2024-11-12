@@ -15,7 +15,7 @@
                     <div class="col-12">
                         <label for="labelFirst_name" class="form-label">Prénom</label>
                         <input type="text" class="form-control" id="inputFirst_name" name="first_name"
-                            v-model="userStore.user.first_name">
+                            v-model="user.first_name">
                         <FormError :messages="errors?.first_name" />
                     </div>
                 </div>
@@ -23,7 +23,7 @@
                     <div class="col-12">
                         <label for="labelLast_name" class="form-label">Nom</label>
                         <input type="text" class="form-control" id="inputLast_name" name="last_name"
-                            v-model="userStore.user.last_name">
+                            v-model="user.last_name">
                         <FormError :messages="errors?.last_name" />
                     </div>
                 </div>
@@ -31,7 +31,7 @@
                     <div class="col-12">
                         <label for="labelEmail" class="form-label">Email</label>
                         <input type="email" class="form-control" id="inputEmail" name="email"
-                            v-model="userStore.user.email">
+                            v-model="user.email">
                         <FormError :messages="errors?.email" />
                     </div>
                 </div>
@@ -39,7 +39,7 @@
                     <div class="col-12">
                         <label for="labelBirthday" class="form-label">Date de naissance</label>
                         <input type="date" class="form-control" id="inputBirthday" name="Birthday"
-                            v-model="userStore.user.birthday">
+                            v-model="user.birthday">
                         <FormError :messages="errors?.birthday" />
                     </div>
                 </div>
@@ -47,7 +47,7 @@
                     <div class="col-12">
                         <label for="labelPhone" class="form-label">Numéro de téléphone</label>
                         <input type="text" class="form-control" id="inputPhone" name="phone"
-                            v-model="userStore.user.phone">
+                            v-model="user.phone">
                         <FormError :messages="errors?.phone" />
                     </div>
                 </div>
@@ -108,15 +108,18 @@
 
 <script setup>
 import FormError from './FormError.vue';
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
-import { useUserStore } from '../stores/User';
 import * as AuthService from '../_services/AuthService';
 import * as UserService from '../_services/UserService';
 
-const userStore = useUserStore();
 const errors = ref({});
 const router = useRouter();
+const user = ref({});
+
+onMounted(async () => {
+    user.value = await UserService.getUserById(router.currentRoute.value.params.id);
+});
 
 const confirmDelete = async () => {
     try {
