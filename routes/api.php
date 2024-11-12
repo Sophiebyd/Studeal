@@ -21,6 +21,8 @@ Route::apiResource("/commands", CommandController::class);
 Route::apiResource("/messages", MessageController::class);
 Route::apiResource("/notifications", NotificationController::class);
 Route::apiResource("/payments", PaymentController::class);
+
+
 // Route::apiResource("/pictures", PictureController::class);
 Route::apiResource("/users", UserController::class);
 
@@ -29,12 +31,14 @@ Route::get('/latest', [ArticleController::class, 'latest']);
 
 Route::get('/pictures/{id}', [PictureController::class, 'picture']);
 
-// Route pour ajouter un article
+// Route pour supprimer un article (policies)
 Route::post('/newArticle', [ArticleController::class, 'store'])->middleware('auth:sanctum');
 
-Route::middleware('auth:sanctum')->group(function () {
-    Route::post('/newArticle', [ArticleController::class, 'store']);
+// policies
+Route::middleware('auth:sanctum')->group(function () { 
+    Route::post('/newArticle', [ArticleController::class, 'store']); 
     Route::put('/newAvatar', [UserController::class, 'update']);
+    Route::delete('/articles/{id}', [ArticleController::class, 'destroy']);
 });
 
 // Route pour les catégories
@@ -46,7 +50,7 @@ Route::get('/category_4', [ArticleController::class, 'articlesByCategory4']);
 // Récupérer les catégories
 Route::get('/article_categories', [CategoryController::class, 'index']);
 
-// Récupérer l'utilisateur role_id utilisateur
+// Récupérer l'utilisateur role_id utilisateur 
 Route::get('/users', [UserController::class, 'index']);
 
 // Authentification
@@ -62,5 +66,5 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 
-// Mise à jour utilisateur
+// Mise à jour utilisateur (policies)
 route::patch('/users/{id}', [UserController::class, 'update'])->name('users.update');
