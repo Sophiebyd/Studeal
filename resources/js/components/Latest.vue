@@ -5,13 +5,14 @@
             <div class="row justify-content-center">
                 <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 d-flex flex-column align-items-center"
                     v-for="ad in latestArticles" :key="ad.id">
-                    <router-link :to="`/article/${ad.id}`" class="mb-4" style="width: 85%;">
+                    <router-link :to="`/article/${ad.id}`" class="mb-4 card-link" style="width: 85%;">
                         <div class="card">
                             <img v-if="ad.pictures.length !== 0" :src="`/api/pictures/${ad.pictures[0].id}`"
                                 class="card-img-top" :alt="ad.title">
                             <div class="card-body text-center">
                                 <h5 class="card-title">{{ ad.title }}</h5>
-                                <p class="card-text">{{ ad.price }} €</p>
+                                <h5 class="card-title"><span>Lieu: </span>{{ ad.address }}</h5>
+                                <p class="card-text"><span>Prix: </span>{{ ad.price }} €</p>
                             </div>
                         </div>
                     </router-link>
@@ -37,6 +38,16 @@ onMounted(async () => {
 h2 {
     font-family: 'Verdana', sans-serif;
     margin-bottom: 30px;
+}
+
+.card-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.card-title .card-text {
+    text-decoration: none;
+
 }
 
 .card-title {
