@@ -126,18 +126,17 @@ const confirmDelete = async () => {
         console.error("Erreur lors de la suppression du compte", error);
         errors.value = error.response.data.errors
     }
-}
+};
 
 const confirmProfil = async () => {
     try {
-        await AuthService.modification()
+        await AuthService.modification();
         document.getElementById('closeProfilModal').click();
-        
     } catch (error) {
-        console.error("Erreur lors de la modification du compte", error)
-        errors.value = error.response.data.errors
+        console.error("Erreur lors de la modification du compte", error);
+        errors.value = error.response?.data?.errors;
     }
-}
+};
 
 // Ajouter une image
 function onProfil(event) {
@@ -153,8 +152,8 @@ function onProfil(event) {
         return;
     }
 
-    UserService.newAvatar({picture:file}).then(() => {
-        api.info({ message: `Changement d'avatar réussit` });
+    UserService.newAvatar({ picture: file }).then(() => {
+        console.log("Changement d'avatar réussi");
     }).catch(error => {
         if (error.response && error.response.data.errors) {
             errors.value = error.response.data.errors;

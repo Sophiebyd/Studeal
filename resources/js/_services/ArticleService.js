@@ -62,3 +62,14 @@ export const newArticle = async (data) => {
         throw error;
     }
 }
+
+// Supprimer un article
+export const deleteArticle = async (articleId) => {
+    try {
+        const res = await Axios.delete(`/articles/${articleId}`);
+        return res.data;
+    } catch (error) {
+        console.error('Erreur lors de la suppression de l\'article:', error);
+        throw error;
+    }
+};

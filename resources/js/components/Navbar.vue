@@ -11,7 +11,7 @@
       </router-link>
 
       <div class="d-flex ms-auto align-items-center">
-        <button class="btn btn-annonce me-3" data-bs-toggle="modal" data-bs-target="#addAnnouncementModal">
+        <button  v-if="userStore.isLogged" class="btn btn-annonce me-3" data-bs-toggle="modal" data-bs-target="#addAnnouncementModal">
           + Ajouter une annonce
         </button>
         <ul class="navbar-nav">
@@ -317,8 +317,8 @@ function authenticate() {
   });
 }
 
-function logout() {
-  userStore.clearUser();
+async function logout () {
+  await AuthService.logout()
   api.info({ message: `Déconnexion réussie` });
   router.push('/');
 }

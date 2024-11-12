@@ -85,7 +85,7 @@ class ArticleController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(StoreArticleRequest $request)
-    {        
+    {
         $article = Article::create([
             'title' => $request->title,
             'address' => $request->address,
@@ -152,13 +152,20 @@ class ArticleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Article $article)
+    public function destroy($id)
     {
+        $article = Article::find($id);
+
+        if (!$article) {
+            return response()->json(['message' => 'Article introuvable'], 404);
+        }
+
         if ($article->picture && File::exists(public_path($article->picture))) {
             File::delete(public_path($article->picture));
         }
-
+        
         $article->delete();
+    
         return response()->json([
             'status' => true,
             'message' => 'Article supprimé',

@@ -12,13 +12,13 @@
                     rapidement et efficacement.
                 </p>
                 <div class="mt-5">
-                    <button class="btn btn-outline-light btn-annonce me-2" data-bs-toggle="modal"
+                    <!-- Affiche le bouton Inscription si l'utilisateur est déconnecté -->
+                    <button v-if="!userStore.isLogged" class="btn btn-outline-light" data-bs-toggle="modal"
+                    data-bs-target="#signupModal">Inscription</button>
+                    <button v-if="userStore.isLogged" class="btn btn-outline-light btn-annonce me-2" data-bs-toggle="modal"
                         data-bs-target="#addAnnouncementModal">
                         + Ajouter une annonce
                     </button>
-                    <!-- Affiche le bouton Inscription si l'utilisateur est déconnecté -->
-                    <button v-if="!userStore.isLogged" class="btn btn-outline-light" data-bs-toggle="modal"
-                        data-bs-target="#signupModal">Inscription</button>
                 </div>
             </div>
         </div>

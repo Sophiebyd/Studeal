@@ -64,5 +64,11 @@ export const deleteProfil = async () => {
 };
 
 export async function logout() {
-    // ....
+    const userStore = useUserStore();
+    await Axios.post('/logout')
+    userStore.clearUser();  // Réinitialisation du store après suppression
+    // Supprimer les cookies csrf + de session
+    document.cookie.split(";").forEach((c) => {
+        document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+    });
 }

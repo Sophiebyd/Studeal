@@ -7,6 +7,13 @@ export async function getUsers(data) {
     return res.data.users;
 }
 
+// Récupérer un utilisateur par ID
+export async function getUserById(userId) {
+    const res = await Axios.get(`/users/${userId}`);
+    console.log(res);
+    return res.data.user;
+}
+
 // requête pour mettre à jour l'image
 export const newAvatar = async (data) => {
     const userStore = useUserStore();
