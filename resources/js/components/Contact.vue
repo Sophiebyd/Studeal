@@ -6,19 +6,24 @@
 
         <form class="text-center">
             <div class="mb-3">
-                <input type="text" placeholder="Prénom" required class="form-input" />
+                <input v-model="first_name" type="text" placeholder="Prénom" required class="form-input" />
+                <FormError :messages="errors?.first_name" />
             </div>
             <div class="mb-3">
-                <input type="text" placeholder="Nom" required class="form-input" />
+                <input v-model="last_name" type="text" placeholder="Nom" required class="form-input" />
+                <FormError :messages="errors?.last_name" />
             </div>
             <div class="mb-3">
-                <input type="email" placeholder="Adresse Email" required class="form-input" />
+                <input v-model="mail" type="email" placeholder="Adresse Email" required class="form-input" />
+                <FormError :messages="errors?.mail" />
             </div>
             <div class="mb-3">
-                <input type="tel" placeholder="Numéro de Téléphone" required class="form-input" />
+                <input v-model="phone" type="tel" placeholder="Numéro de Téléphone" required class="form-input" />
+                <FormError :messages="errors?.phone" />
             </div>
             <div class="mb-3">
-                <textarea placeholder="Votre message" required class="form-input" rows="4"></textarea>
+                <textarea v-model="content" placeholder="Votre message" required class="form-input" rows="4"></textarea>
+                <FormError :messages="errors?.content" />
             </div>
             <div class="button-group">
                 <button type="button" class="btn btn-blue" @click="confirmContact">Envoyer</button>
@@ -26,30 +31,39 @@
             </div>
         </form>
     </div>
+    <contextHolder />
 </template>
 
 <script setup>
+import FormError from './FormError.vue';
 import axios from 'axios';
 import { ref } from 'vue';
 import { notification } from 'ant-design-vue';
 
-const form = ref({
-    first_name: '',
-    last_name: '',
-    email: '',
-    phone: '',
-    message: ''
-});
+const [api, contextHolder] = notification.useNotification();
+const errors = ref({});
+
+const first_name = ref('');
+const last_name = ref('');
+const mail = ref('');
+const phone = ref('');
+const content = ref('');
 
 const confirmContact = async () => {
     try {
-        const response = await axios.post('/send-contact', form.value);
-        notification.success({ message: response.data.message });
+        const response = await axios.post('/api/contact', {
+        first_name: first_name.value,
+        last_name: last_name.value,
+        email: mail.value,
+        phone: phone.value,
+        message: content.value
+    });
+        api.success({ message: response.data.message });
     } catch (error) {
         console.error("Erreur lors de l'envoi du mail", error);
-        notification.error({
+        api.error({
             message: 'Erreur lors de l\'envoi de l\'email',
-            description: error.response?.data?.message || 'Une erreur est survenue.'
+            description: error.response?.data?.message
         });
     }
 };

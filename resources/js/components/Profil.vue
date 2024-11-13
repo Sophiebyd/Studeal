@@ -163,7 +163,6 @@ function onProfil(event) {
     }
 
     UserService.updateWithPicture({ ...form.value, picture: file }).then((data) => {
-        console.log("Changement d'avatar réussi");
         userStore.setUser(data.user);
         api.success({ message: 'Avatar modifié avec succès' });
     }).catch(error => {

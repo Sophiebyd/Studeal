@@ -52,7 +52,6 @@ const selectedSort = ref('recent');
 
 onMounted(async () => {
     ArticlesCategory.value = await ArticleService.getCategory2();
-    console.log(ArticlesCategory.value);
 });
 
 // Filtrer et trier les annonces

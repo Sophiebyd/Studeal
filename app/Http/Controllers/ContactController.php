@@ -18,9 +18,9 @@ class ContactController extends Controller
             'message' => 'required|string',
         ]);
 
-        $details = $request->only(['first_name', 'last_name', 'email', 'phone', 'message']);
+        $contact = $request->only(['first_name', 'last_name', 'email', 'phone', 'message']);
 
-        Mail::to('sbydtest@gmail.com')->send(new ContactMail($details));
+        Mail::to('contact@studeals.fr')->send(new ContactMail($contact));
 
         return response()->json(['message' => 'Email envoyé avec succès !'], 200);
     }

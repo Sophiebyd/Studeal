@@ -30,7 +30,6 @@ const latestArticles = ref([]);
 
 onMounted(async () => {
     latestArticles.value = await ArticleService.getLatestArticles();
-    console.log(latestArticles.value);
 });
 </script>
 

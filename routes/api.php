@@ -12,6 +12,7 @@ use App\Http\Controllers\API\PaymentController;
 use App\Http\Controllers\API\PictureController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\LoginController;
+use App\Http\Controllers\ContactController;
 use App\Models\Picture;
 
 // Ressources API
@@ -55,6 +56,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/newAvatar/{user}', [UserController::class, 'update']);
     Route::delete('/articles/{id}', [ArticleController::class, 'destroy']);
 });
+
+// Route pour le mail
+Route::post('/contact', [ContactController::class, 'sendMail']);
 
 // Utilisateur authentifié
 Route::get('/user', function (Request $request) {

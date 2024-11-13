@@ -49,7 +49,6 @@ const selectedSort = ref('recent');
 
 onMounted(async () => {
     ArticlesCategory.value = await ArticleService.getCategory1();
-    console.log(ArticlesCategory.value);
 });
 
 const filteredAds = computed(() => {

@@ -277,7 +277,6 @@ const confirmDelete = async () => {
     if (selectedArticle.value) {
         try {
             await deleteArticle(selectedArticle.value.id);
-            console.log(`Article supprimé: ${selectedArticle.value.title}`);
             switch (activeTab.value) {
                 case 'colocation':
                     category1.value = category1.value.filter(article => article.id !== selectedArticle.value.id);

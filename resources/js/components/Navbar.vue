@@ -326,7 +326,6 @@ async function logout () {
 
 // Fonction pour ajouter un article
 function addArticle() {
-  console.log(article.value);
   ArticleService.newArticle(article.value).then(() => {
     document.getElementById('addArticleClose').click();
     api.info({ message: `Création de l'article réussite` });
@@ -342,7 +341,6 @@ onMounted(async () => {
   try {
     const response = await CategoryService.getCategories();
     categories.value = response.categories;
-    console.log(categories.value);
   } catch (error) {
     console.error('Erreur lors du chargement des catégories:', error);
   }

@@ -10,7 +10,6 @@ export async function getUsers(data) {
 // Récupérer un utilisateur par ID
 export async function getUserById(userId) {
     const res = await Axios.get(`/users/${userId}`);
-    console.log(res);
     return res.data.user;
 }
 
