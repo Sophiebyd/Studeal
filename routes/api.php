@@ -22,7 +22,6 @@ Route::apiResource("/messages", MessageController::class);
 Route::apiResource("/notifications", NotificationController::class);
 Route::apiResource("/payments", PaymentController::class);
 
-
 // Route::apiResource("/pictures", PictureController::class);
 Route::apiResource("/users", UserController::class);
 
@@ -30,13 +29,6 @@ Route::apiResource("/users", UserController::class);
 Route::get('/latest', [ArticleController::class, 'latest']);
 
 Route::get('/pictures/{id}', [PictureController::class, 'picture']);
-
-// policies
-Route::middleware('auth:sanctum')->group(function () { 
-    Route::post('/newArticle', [ArticleController::class, 'store']); 
-    Route::put('/newAvatar', [UserController::class, 'update']);
-    Route::delete('/articles/{id}', [ArticleController::class, 'destroy']);
-});
 
 // Route pour les catégories
 Route::get('/category_1', [ArticleController::class, 'articlesByCategory1']);
@@ -55,6 +47,13 @@ Route::middleware('web')->group(function () {
     Route::post('/register', [RegisterController::class, 'register'])->name('register');
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
     Route::post('/login', [LoginController::class, 'login'])->name('login');
+});
+
+//Route protégée par l'authentification
+Route::middleware('auth:sanctum')->group(function () { 
+    Route::post('/newArticle', [ArticleController::class, 'store']); 
+    Route::put('/newAvatar', [UserController::class, 'update']);
+    Route::delete('/articles/{id}', [ArticleController::class, 'destroy']);
 });
 
 // Utilisateur authentifié

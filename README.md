@@ -85,3 +85,10 @@ php artisan migrate:fresh --seed
 
 ## créer une requête 
 php artisan make:request StorePostRequest
+
+# installer environnement
+wamp / composer 
+
+# command composer
+composer
+composer install
