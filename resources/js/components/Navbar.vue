@@ -299,6 +299,7 @@ function register() {
   }).catch(error => {
     if (error.response && error.response.data.errors) {
       errors.value = error.response.data.errors;
+      api.error({ message: `Erreur lors de l'insription`, description: error.message });
     }
   });
 }
@@ -329,9 +330,11 @@ function addArticle() {
   ArticleService.newArticle(article.value).then(() => {
     document.getElementById('addArticleClose').click();
     api.info({ message: `Création de l'article réussite` });
+    router.push('/')
   }).catch(error => {
     if (error.response && error.response.data.errors) {
       errors.value = error.response.data.errors;
+      api.error({ message: `Erreur lors de l'ajout de l'article`, description: error.message });
     }
   });
 }

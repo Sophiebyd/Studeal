@@ -1,6 +1,6 @@
 <template>
     <div class="text-center mt-5">
-        <img :src="'avatars/' + userStore.user.picture" class="rounded image" alt="picture">
+        <img :src="'/avatars/' + userStore.user.picture" class="rounded image" alt="picture">
         <div class="mb-3 row mt-3 mx-0">
             <div>
                 <button type="click" class="btn btn-primary me-2" @click="profilPict">Modifier l'avatar</button>
