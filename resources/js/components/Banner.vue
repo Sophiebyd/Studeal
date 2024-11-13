@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="banner position-relative">
-            <img src="../../../public/img/Banner.jpg" alt="Bannière" class="img-fluid w-100 banner-img" />
+            <img src="/img/Banner.jpg" alt="Bannière" class="img-fluid w-100 banner-img" />
 
             <!-- Overlay -->
             <div

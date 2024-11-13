@@ -3,7 +3,7 @@
         <template v-if="article.id">
             <h1 class="article-title">{{ article.title }}</h1>
             <div class="article-image">
-                <img :src="`/api/pictures/${article.pictures[0].id}`" :alt="article.title" />
+                <img :src="`/img/${article.pictures[0].name}`" :alt="article.title" />
             </div>
             <div class="article-details">
                 <p class="article-description"><strong>Description :</strong>{{ article.content }}</p>

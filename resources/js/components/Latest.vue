@@ -7,7 +7,7 @@
                     v-for="ad in latestArticles" :key="ad.id">
                     <router-link :to="`/article/${ad.id}`" class="mb-4 card-link" style="width: 85%;">
                         <div class="card">
-                            <img v-if="ad.pictures.length !== 0" :src="`/api/pictures/${ad.pictures[0].id}`"
+                            <img v-if="ad.pictures.length !== 0" :src="`/img/${ad.pictures[0].name}`"
                                 class="card-img-top" :alt="ad.title">
                             <div class="card-body text-center">
                                 <h5 class="card-title">{{ ad.title }}</h5>

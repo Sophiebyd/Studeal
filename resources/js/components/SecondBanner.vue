@@ -3,19 +3,19 @@
         <h1 class="advantages-title">Avantages de Stu'deal</h1>
         <div class="advantage-items d-flex justify-content-center text-center">
             <div class="advantage-item">
-                <img src="../../../public/img/euro_logo.png" alt="Prix bas" class="advantage-icon" />
+                <img src="/img/euro_logo.png" alt="Prix bas" class="advantage-icon" />
                 <p>Prix bas</p>
             </div>
             <div class="advantage-item">
-                <img src="../../../public/img/speed_logo.png" alt="Rapide" class="advantage-icon" />
+                <img src="/img/speed_logo.png" alt="Rapide" class="advantage-icon" />
                 <p>Rapide</p>
             </div>
             <div class="advantage-item">
-                <img src="../../../public/img/security_logo.png" alt="Sécurisé" class="advantage-icon" />
+                <img src="/img/security_logo.png" alt="Sécurisé" class="advantage-icon" />
                 <p>Sécurisé</p>
             </div>
             <div class="advantage-item">
-                <img src="../../../public/img/share_logo.png" alt="Entraide" class="advantage-icon" />
+                <img src="/img/share_logo.png" alt="Entraide" class="advantage-icon" />
                 <p>Entraide</p>
             </div>
         </div>

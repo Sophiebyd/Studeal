@@ -114,7 +114,7 @@
                         <td>{{ new Date(article.created_at).toLocaleDateString('fr-FR') }}</td>
                         <td>
                             <button class="btn btn-danger" @click="openDeleteModal(article)">
-                                <img src="../../../public/img/trash_icon.png" alt="Supprimer"
+                                <img src="/img/trash_icon.png" alt="Supprimer"
                                     style="width: 24px; height: 24px;">
                             </button>
                         </td>
@@ -147,7 +147,7 @@
                         <td>{{ new Date(article.created_at).toLocaleDateString('fr-FR') }}</td>
                         <td>
                             <button class="btn btn-danger" @click="openDeleteModal(article)">
-                                <img src="../../../public/img/trash_icon.png" alt="Supprimer"
+                                <img src="/img/trash_icon.png" alt="Supprimer"
                                     style="width: 24px; height: 24px;">
                             </button>
                         </td>
@@ -180,7 +180,7 @@
                         <td>{{ new Date(article.created_at).toLocaleDateString('fr-FR') }}</td>
                         <td>
                             <button class="btn btn-danger" @click="openDeleteModal(article)">
-                                <img src="../../../public/img/trash_icon.png" alt="Supprimer"
+                                <img src="/img/trash_icon.png" alt="Supprimer"
                                     style="width: 24px; height: 24px;">
                             </button>
                         </td>
@@ -213,7 +213,7 @@
                         <td>{{ new Date(article.created_at).toLocaleDateString('fr-FR') }}</td>
                         <td>
                             <button class="btn btn-danger" @click="openDeleteModal(article)">
-                                <img src="../../../public/img/trash_icon.png" alt="Supprimer"
+                                <img src="/img/trash_icon.png" alt="Supprimer"
                                     style="width: 24px; height: 24px;">
                             </button>
                         </td>

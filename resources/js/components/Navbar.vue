@@ -2,7 +2,7 @@
   <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
       <router-link class="navbar-brand" to="/">
-        <img src="../../../public/img/Logo.png" alt="Logo" class="logo" />
+        <img src="/img/Logo.png" alt="Logo" class="logo" />
       </router-link>
 
       <!-- Affiche l'email uniquement si l'utilisateur est connecté -->

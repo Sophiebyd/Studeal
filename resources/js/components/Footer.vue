@@ -2,12 +2,12 @@
     <footer class="footer">
         <div class="footer-container">
             <router-link to="/" class="footer-logo">
-                <img src="../../../public/img/Logo.png" alt="Logo" class="logo-img" />
+                <img src="/img/Logo.png" alt="Logo" class="logo-img" />
             </router-link>
 
             <div class="footer-links">
                 <router-link to="/condition" class="text-decoration-none text-white">Conditions générales</router-link>
-                <router-link to="/contact" class="text-decoration-none text-white">Contact</router-link>
+                <!-- <router-link to="/contact" class="text-decoration-none text-white">Contact</router-link> -->
             </div>
         </div>
     </footer>

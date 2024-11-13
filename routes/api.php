@@ -29,8 +29,6 @@ Route::apiResource("/users", UserController::class);
 // Route pour obtenir les 10 derniers articles
 Route::get('/latest', [ArticleController::class, 'latest']);
 
-Route::get('/pictures/{id}', [PictureController::class, 'picture']);
-
 // Route pour les catégories
 Route::get('/category_1', [ArticleController::class, 'articlesByCategory1']);
 Route::get('/category_2', [ArticleController::class, 'articlesByCategory2']);

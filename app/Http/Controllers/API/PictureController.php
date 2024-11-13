@@ -77,12 +77,6 @@ class PictureController extends Controller
                 'picture' => $picture,
                 'message' => 'Image supprimée',
             ]);
-        }
+        };
     }
-
-    // Fonction pour récupérer picture
-    public function picture(Request $request, int $id)
-    {
-        return response()->file(Picture::find($id)->getPath());
-    }
-}
+};
