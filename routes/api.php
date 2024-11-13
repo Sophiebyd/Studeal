@@ -52,7 +52,7 @@ Route::middleware('web')->group(function () {
 //Route protégée par l'authentification
 Route::middleware('auth:sanctum')->group(function () { 
     Route::post('/newArticle', [ArticleController::class, 'store']); 
-    Route::put('/newAvatar', [UserController::class, 'update']);
+    Route::put('/newAvatar/{user}', [UserController::class, 'update']);
     Route::delete('/articles/{id}', [ArticleController::class, 'destroy']);
 });
 
@@ -63,4 +63,4 @@ Route::get('/user', function (Request $request) {
 
 
 // Mise à jour utilisateur (policies)
-route::patch('/users/{id}', [UserController::class, 'update'])->name('users.update');
+route::patch('/users/{user}', [UserController::class, 'update'])->name('users.update');

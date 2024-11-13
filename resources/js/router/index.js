@@ -25,7 +25,10 @@ const router = createRouter({
         { path: '/condition', name: 'Condition', component: Condition },
         { path: '/admin', name: 'Admin', component: Admin },
         { path: '/article/:id', name: 'Article', component: Article },
-    ]
+    ],
+    scrollBehavior(to, from, savedPosition) {
+        return { top: 0 }
+    }
 });
 
 export default router;

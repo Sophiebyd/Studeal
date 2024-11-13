@@ -10,6 +10,7 @@ export const useUserStore = defineStore('user', () => {
     last_name: '',
     birthday: '',
     phone: '',
+    picture: ''
   });
 
   user.value.id = Number(localStorage.getItem('id'));
@@ -19,6 +20,7 @@ export const useUserStore = defineStore('user', () => {
   user.value.birthday = localStorage.getItem('birthday');
   user.value.phone = localStorage.getItem('phone');
   user.value.role = localStorage.getItem('role');
+  user.value.picture = localStorage.getItem('picture');
 
   const isLogged = computed(() => {
     return !!user.value.email;
@@ -33,6 +35,7 @@ export const useUserStore = defineStore('user', () => {
     user.value.last_name = data.last_name;
     user.value.birthday = data.birthday;
     user.value.phone = data.phone;
+    user.value.picture = data.picture;
     localStorage.setItem('id', String(data.id));
     localStorage.setItem('email', data.email ?? '');
     localStorage.setItem('role', user.value.role);
@@ -40,6 +43,7 @@ export const useUserStore = defineStore('user', () => {
     localStorage.setItem('last_name', data.last_name ?? '');
     localStorage.setItem('birthday', data.birthday ?? '');
     localStorage.setItem('phone', data.phone ?? '');
+    localStorage.setItem('picture', data.picture ?? '');
   }
 
   function clearUser() {
@@ -51,14 +55,8 @@ export const useUserStore = defineStore('user', () => {
       last_name: '',
       birthday: '',
       phone: '',
+      picture: ''
     });
-
-    // localStorage.removeItem('id');
-    // localStorage.removeItem('email');
-    // localStorage.removeItem('first_name');
-    // localStorage.removeItem('last_name');
-    // localStorage.removeItem('birthday');
-    // localStorage.removeItem('phone');
   }
 
   return {

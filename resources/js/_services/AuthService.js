@@ -16,51 +16,22 @@ export async function authenticate(data) {
     const res = await Axios.post('/login', data);
 
     const userStore = useUserStore();
-    userStore.setUser({
-        id: res.data.id,
-        email: res.data.email,
-        role: res.data.role,
-        first_name: res.data.first_name,
-        last_name: res.data.last_name,
-        birthday: res.data.birthday,
-        phone: res.data.phone
-    });
+    userStore.setUser(res.data);
     return res.data;
-
-    
-}
-
-// requête modification du profil
-export const modification = async () => {
-    const userStore = useUserStore();
-    await Axios.get('/sanctum/csrf-cookie', {
-        baseURL: '/'
-    });
-    await Axios.put('/users/' + userStore.user.id, {
-        first_name: userStore.user.first_name,
-        last_name: userStore.user.last_name,
-        email: userStore.user.email,
-        birthday: userStore.user.birthday,
-        phone: userStore.user.phone
-    })
-        .then(response => {
-            userStore.setUser(response.data.user);
-            alert(response.data.message);
-        })
-        .catch(error => {
-            console.error(error);
-        })
 }
 
 // requête supprimer le profil
 export const deleteProfil = async () => {
     const userStore = useUserStore();
     await Axios.delete('/users/' + userStore.user.id)
+    await Axios.post('/logout')
     userStore.clearUser();  // Réinitialisation du store après suppression
     // Supprimer les cookies csrf + de session
     document.cookie.split(";").forEach((c) => {
         document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
     });
+
+    console.log('delete');
 };
 
 export async function logout() {

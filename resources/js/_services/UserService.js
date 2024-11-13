@@ -14,33 +14,24 @@ export async function getUserById(userId) {
     return res.data.user;
 }
 
-export async function update(user) {
+export async function update(data) {
     const userStore = useUserStore();
     await Axios.get('/sanctum/csrf-cookie', {
         baseURL: '/'
     });
-    await Axios.put('/users/' + user.id, {
-        first_name: user.first_name,
-        last_name: user.last_name,
-        email: user.email,
-        birthday: user.birthday,
-        phone: user.phone
+    const res = await Axios.put(`/users/${userStore.user.id}`, data).catch(error => {
+        console.error(error);
     })
-        .catch(error => {
-            console.error(error);
-        })
+
+    return res.data;
 }
 
 // requête pour mettre à jour l'image
-export const newAvatar = async (data) => {
+export const updateWithPicture = async (data) => {
     const userStore = useUserStore();
-    const res = await Axios.put('/newAvatar', {...data, user_id: userStore.user.id}, 
-        {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        }
-    )
+    const res = await Axios.post(`/newAvatar/${userStore.user.id}`, {...data, _method: 'PUT' }, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+    });
 
     return res.data;
 }

@@ -81,29 +81,22 @@ class UserController extends Controller
             abort('401');
         }
 
-        $user->load('role');
+        // $user->load('role');
         $user->update($request->except('picture'));
-        Log::info('test');
+        // Log::info('test');
 
-        if ($request->picture) {
-            Log::info('test 2');
-            // Suppression de l'ancienne image si elle existe
-            if ($user->picture && File::exists(public_path($user->picture))) {
-                File::delete(public_path($user->picture));
-            }
-            
-            // Enregistrement de la nouvelle image
-            $fileName = time() . '_' . $request->picture->getClientOriginalName();
-            $path = 'public/img/' . $fileName;
-            $user->picture = $path;
-            $request->picture->move(public_path('public/img'), $fileName);
-            $user->save();
+        if ($request->file('picture')) {
+            $fileName = $user->id . '.' . $request->picture->extension();
+            $user->picture = $fileName;
+            $request->picture->move(public_path('avatars'), $fileName);
         }
+
+        $user->save();
 
         return response()->json([
             'status' => true,
             'user' => $user,
-            'message' => 'Utilisateur modifié',
+            'message' => 'Utilisateur modifié 2',
         ]);
     }
 

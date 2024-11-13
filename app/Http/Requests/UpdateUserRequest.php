@@ -29,11 +29,6 @@ class UpdateUserRequest extends FormRequest
             'first_name' => 'nullable|string|min:2|max:30',
             'birthday' => 'nullable|date',
             'phone' => 'nullable|digits:10',
-            'email' => [
-                'nullable',
-                Rule::unique('users')->ignore($this->user),
-                'email'
-            ],
             'password' => [
                 'nullable',
                 'confirmed',
