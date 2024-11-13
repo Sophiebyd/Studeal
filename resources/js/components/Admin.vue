@@ -222,6 +222,7 @@
             </table>
         </div>
     </section>
+    <contextHolder />
 </template>
 
 <script setup>
@@ -229,7 +230,9 @@ import { ref, computed, onMounted } from 'vue';
 import * as UserService from '../_services/UserService';
 import * as ArticleService from '../_services/ArticleService';
 import { deleteArticle } from '../_services/ArticleService';
+import { notification } from 'ant-design-vue';
 
+const [api, contextHolder] = notification.useNotification();
 const activeTab = ref('users'); // Onglet par défaut
 
 const getUsers = ref([]);
@@ -289,8 +292,10 @@ const confirmDelete = async () => {
                     category4.value = category4.value.filter(article => article.id !== selectedArticle.value.id);
                     break;
             }
+            api.success({ message: `L'article ${selectedArticle.value.title} est bien supprimé` });
         } catch (error) {
             console.error('Erreur lors de la suppression de l\'article:', error);
+            api.error({ message: `Erreur lors de la suppression de l'article`, description: error.message });
         }
         closeModal();
     }

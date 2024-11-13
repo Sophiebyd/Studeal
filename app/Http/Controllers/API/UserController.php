@@ -81,7 +81,7 @@ class UserController extends Controller
             abort('401');
         }
 
-        // $user->load('role');
+        $user->load('role');
         $user->update($request->except('picture'));
         // Log::info('test');
 

@@ -10,7 +10,6 @@ export async function getArticles() {
 // Récupérer tous les articles_id
 export async function getArticleById(articleId) {
     const res = await Axios.get(`/articles/${articleId}`);
-    console.log(res.data.article);
     return res.data.article;
     
 }
