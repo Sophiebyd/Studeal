@@ -165,6 +165,7 @@ function onProfil(event) {
     UserService.updateWithPicture({ ...form.value, picture: file }).then((data) => {
         userStore.setUser(data.user);
         api.success({ message: 'Avatar modifié avec succès' });
+        router.push('/profil')
     }).catch(error => {
         if (error.response && error.response.data.errors) {
             errors.value = error.response.data.errors;

@@ -257,7 +257,7 @@ onMounted(async () => {
 // Fonction pour obtenir le nom complet de l'utilisateur à partir de l'ID
 const getUserFullName = (userId) => {
     const user = getUsers.value.find(user => user.id === userId);
-    return user ? `${user.first_name} ${user.last_name}` : 'Utilisateur inconnu';
+    return `${user.first_name} ${user.last_name}`
 };
 
 // Fonction pour ouvrir la modale de suppression
@@ -328,7 +328,6 @@ const filteredData = (data, type = 'article') => {
     return filtered;
 };
 
-// Correction pour les `computed`
 const filteredUsers = computed(() => filteredData(getUsers.value, 'user'));
 const filteredCategory1 = computed(() => filteredData(category1.value));
 const filteredCategory2 = computed(() => filteredData(category2.value));

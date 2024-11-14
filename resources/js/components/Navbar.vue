@@ -75,7 +75,6 @@
                   {{ category.name }}
                 </option>
               </select>
-              <FormError :messages="errors?.category_id" />
             </div>
             <div class="mb-3">
               <label for="address" class="form-label">Lieu</label>
