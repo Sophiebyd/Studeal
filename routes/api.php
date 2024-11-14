@@ -9,11 +9,9 @@ use App\Http\Controllers\API\CommandController;
 use App\Http\Controllers\API\MessageController;
 use App\Http\Controllers\API\NotificationController;
 use App\Http\Controllers\API\PaymentController;
-use App\Http\Controllers\API\PictureController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\LoginController;
 use App\Http\Controllers\ContactController;
-use App\Models\Picture;
 
 // Ressources API
 Route::apiResource("/articles", ArticleController::class);
