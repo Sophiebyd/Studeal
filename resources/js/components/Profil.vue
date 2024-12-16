@@ -11,7 +11,7 @@
     </div>
     <div class="container d-flex justify-content-center align-items-center mt-5">
         <div class="col-12 col-sm-8 col-md-6 col-lg-4">
-            <form @submit.prevent="modification">
+            <form>
                 <div class="mb-3 row">
                     <div class="col-12">
                         <label for="labelFirst_name" class="form-label">Prénom</label>
@@ -165,7 +165,7 @@ function onProfil(event) {
     UserService.updateWithPicture({ ...form.value, picture: file }).then((data) => {
         userStore.setUser(data.user);
         api.success({ message: 'Avatar modifié avec succès' });
-        router.push('/profil')
+        router.push('/')
     }).catch(error => {
         if (error.response && error.response.data.errors) {
             errors.value = error.response.data.errors;

@@ -52,7 +52,6 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Confirmation de suppression</h5>
-                        <button type="button" class="btn-close" @click="closeModal"></button>
                     </div>
                     <div class="modal-body">
                         <p>Voulez-vous supprimer l'article "<strong>{{ selectedArticle.title }}</strong>" ? Cette action
@@ -246,6 +245,7 @@ const selectedSort = ref('recent');
 const showDeleteModal = ref(false);
 const selectedArticle = ref(null);
 
+// récupère les données de la BDD
 onMounted(async () => {
     getUsers.value = await UserService.getUsers();
     category1.value = await ArticleService.getCategory1();
